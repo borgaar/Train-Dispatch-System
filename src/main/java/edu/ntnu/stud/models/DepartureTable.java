@@ -23,6 +23,10 @@ public class DepartureTable {
     return currentTime;
   }
 
+  public void setCurrentTime(LocalTime time) {
+    currentTime = time;
+  }
+
   /**
    * Method for adding a departure to the Departure Table.
    *

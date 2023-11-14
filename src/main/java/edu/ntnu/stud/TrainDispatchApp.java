@@ -1,6 +1,7 @@
 package edu.ntnu.stud;
 
 import edu.ntnu.stud.commands.PrintDepartures;
+import edu.ntnu.stud.commands.UpdateClock;
 import edu.ntnu.stud.input.InputHandler;
 import edu.ntnu.stud.models.DepartureTable;
 import edu.ntnu.stud.models.TrainDeparture;
@@ -76,7 +77,7 @@ public class TrainDispatchApp {
 
       switch (choice) {
         case 1 -> PrintDepartures.print(table);
-        case 2 -> System.out.println("Not yet implemented");
+        case 2 -> UpdateClock.updateClock(table);
         case 3 -> System.out.println("Not yet implemented");
         case 4 -> System.out.println("Not yet implemented");
         case 5 -> System.out.println("Not yet implemented");

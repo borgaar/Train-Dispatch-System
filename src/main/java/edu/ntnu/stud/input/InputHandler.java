@@ -19,6 +19,7 @@ public class InputHandler {
 
     while (!input.matches(regex) && !(blankAllowed && input.isEmpty())) {
       System.out.println("Invalid input. Try again.");
+      System.out.println(prompt);
       input = GetInputFromStream.getString();
     }
 
