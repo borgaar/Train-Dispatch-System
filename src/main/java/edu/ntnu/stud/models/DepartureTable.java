@@ -9,7 +9,11 @@ import java.util.ArrayList;
 public class DepartureTable {
   // Object variables
   private final ArrayList<TrainDeparture> departureList = new ArrayList<>();
-  private final LocalTime currentTime = LocalTime.of(0, 0);
+  private LocalTime currentTime;
+
+  public DepartureTable(LocalTime time) {
+    currentTime = time;
+  }
 
   public ArrayList<TrainDeparture> getDepartureList() {
     return departureList;

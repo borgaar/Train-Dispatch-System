@@ -1,12 +1,11 @@
 package edu.ntnu.stud;
 
-
 import edu.ntnu.stud.commands.PrintDepartures;
 import edu.ntnu.stud.input.InputHandler;
 import edu.ntnu.stud.models.DepartureTable;
 import edu.ntnu.stud.models.TrainDeparture;
+import edu.ntnu.stud.utils.DepartureTableHandler;
 import edu.ntnu.stud.utils.Renderer;
-
 import java.time.LocalTime;
 import java.util.OptionalInt;
 
@@ -17,7 +16,6 @@ import java.util.OptionalInt;
 public class TrainDispatchApp {
 
   private static DepartureTable table;
-  private static InputHandler inputHandler;
 
   public static void main(String[] args) {
     init();
@@ -27,8 +25,7 @@ public class TrainDispatchApp {
   private static void init() {
     System.out.println("Initializing...");
 
-    table = new DepartureTable();
-    inputHandler = new InputHandler();
+    table = new DepartureTable(LocalTime.of(12, 10));
 
     // Creates a few pre-generated train departures
     table.addDeparture(new TrainDeparture(
@@ -70,6 +67,9 @@ public class TrainDispatchApp {
     int choice;
 
     while (true) {
+
+      DepartureTableHandler.updateDepartureTable(table);
+
       Renderer.renderMenu();
 
       choice = InputHandler.getInput("Enter an option: ", "[1-8]", false).charAt(0) - '0';
