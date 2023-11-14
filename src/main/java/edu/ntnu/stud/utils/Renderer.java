@@ -1,6 +1,7 @@
 package edu.ntnu.stud.utils;
 
 import edu.ntnu.stud.models.DepartureTable;
+import java.time.LocalTime;
 
 /**
  * Class for rendering different elements.
@@ -55,7 +56,10 @@ public class Renderer {
           15,
           false,
           true));
-      System.out.print(TextMutilation.formatToTableEntry(departure.getDelay().toString(),
+      System.out.print(TextMutilation.formatToTableEntry(
+          departure.getDelay().equals(LocalTime.of(0, 0))
+              ? " "
+              : departure.getDelay().toString(),
           5,
           false,
           false));
