@@ -73,7 +73,11 @@ public class TrainDispatchApp {
 
       Renderer.renderMenu();
 
-      choice = InputHandler.getInput("Enter an option: ", "[1-8]", false).charAt(0) - '0';
+      choice = InputHandler.getInput(
+          "Enter an option",
+          "[1-8]",
+          "[1-8]",
+          false).charAt(0) - '0';
 
       switch (choice) {
         case 1 -> PrintDepartures.print(table);

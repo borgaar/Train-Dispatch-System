@@ -13,13 +13,14 @@ public class InputHandler {
    * @param blankAllowed Whether or not blank input is allowed.
    * @return The input from the user.
    */
-  public static String getInput(String prompt, String regex, boolean blankAllowed) {
-    System.out.println(prompt);
+  public static String getInput(String prompt, String format, String regex, boolean blankAllowed) {
+    String fullPrompt = prompt + " --> " + format + " --> ";
+    System.out.print(fullPrompt);
     String input = GetInputFromStream.getString();
 
-    while (!input.matches(regex) && !(blankAllowed && input.isEmpty())) {
+    if (!input.matches(regex) && !(blankAllowed && input.isEmpty())) {
       System.out.println("Invalid input. Try again.");
-      System.out.println(prompt);
+      System.out.print(fullPrompt);
       input = GetInputFromStream.getString();
     }
 
