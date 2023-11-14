@@ -2,6 +2,7 @@ package edu.ntnu.stud.commands;
 
 import edu.ntnu.stud.input.InputHandler;
 import edu.ntnu.stud.models.DepartureTable;
+import static edu.ntnu.stud.utils.Constants.REGEX_24HR_FORMAT;
 import edu.ntnu.stud.utils.Halt;
 import java.time.LocalTime;
 
@@ -19,20 +20,20 @@ public class UpdateClock {
         true);
 
     if (input.isEmpty()) {
-      System.out.println("Aborting. The time has not been changed.");
+      System.out.println("\nAborting. The time has not been changed.");
       Halt.pressEnterToContinue();
 
     } else {
       LocalTime newTime = LocalTime.parse(input);
 
       if (newTime.isBefore(table.getCurrentTime()) || newTime.equals(table.getCurrentTime())) {
-        System.out.println("The new time is before or equal to the current time, "
+        System.out.println("\nThe new time is before or equal to the current time, "
             + "which is an invalid time. Please try again.");
         updateClock(table);
 
       } else {
         table.setCurrentTime(newTime);
-        System.out.println("The time has been changed to " + newTime);
+        System.out.println("\nThe time has been changed to " + newTime);
         Halt.pressEnterToContinue();
       }
     }
