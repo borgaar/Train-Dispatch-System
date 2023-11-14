@@ -13,8 +13,9 @@ public class UpdateClock {
    * Updates the clock of the system.
    */
   public static void updateClock(DepartureTable table) {
-    String input = InputHandler.getInput("Enter new time, or leave blank to abort: [HH:MM]",
-        "([01]?[0-9]|2[0-3]):[0-5][0-9]",
+    String input = InputHandler.getInput("Enter new time, or leave blank to abort",
+        "HH:MM",
+        REGEX_24HR_FORMAT,
         true);
 
     if (input.isEmpty()) {
