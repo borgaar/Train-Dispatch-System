@@ -1,16 +1,24 @@
 package edu.ntnu.stud;
 
 
+import edu.ntnu.stud.commands.PrintDepartures;
+import edu.ntnu.stud.input.InputHandler;
 import edu.ntnu.stud.models.DepartureTable;
 import edu.ntnu.stud.models.TrainDeparture;
+import edu.ntnu.stud.utils.Renderer;
 
 import java.time.LocalTime;
 import java.util.OptionalInt;
+
 
 /**
  * This is the main class for the train dispatch application.
  */
 public class TrainDispatchApp {
+
+  private static DepartureTable table;
+  private static InputHandler inputHandler;
+
   public static void main(String[] args) {
     init();
     start();
@@ -19,7 +27,8 @@ public class TrainDispatchApp {
   private static void init() {
     System.out.println("Initializing...");
 
-    DepartureTable table = new DepartureTable();
+    table = new DepartureTable();
+    inputHandler = new InputHandler();
 
     // Creates a few pre-generated train departures
     table.addDeparture(new TrainDeparture(
@@ -57,5 +66,28 @@ public class TrainDispatchApp {
 
   private static void start() {
     System.out.println("Starting...");
+
+    int choice;
+
+    while (true) {
+      Renderer.renderMenu();
+
+      choice = InputHandler.getInput("Enter an option: ", "[1-8]", false).charAt(0) - '0';
+
+      switch (choice) {
+        case 1 -> PrintDepartures.print(table);
+        case 2 -> System.out.println("Not yet implemented");
+        case 3 -> System.out.println("Not yet implemented");
+        case 4 -> System.out.println("Not yet implemented");
+        case 5 -> System.out.println("Not yet implemented");
+        case 6 -> System.out.println("Not yet implemented");
+        case 7 -> System.out.println("Not yet implemented");
+        case 8 -> {
+          System.out.println("Exiting...");
+          System.exit(0);
+        }
+        default -> System.out.println("Invalid input. Try again.");
+      }
+    }
   }
 }
