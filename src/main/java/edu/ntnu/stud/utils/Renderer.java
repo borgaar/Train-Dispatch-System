@@ -63,7 +63,7 @@ public class Renderer {
           departure.getTrack().isPresent()
               ? Integer.toString(departure.getTrack().getAsInt())
               : " ",
-          6,
+          5,
           true,
           false));
     });
