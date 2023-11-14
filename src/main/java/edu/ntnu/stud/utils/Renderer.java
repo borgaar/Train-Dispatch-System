@@ -72,8 +72,10 @@ public class Renderer {
           false));
     });
 
-    // Print bottom border
-    System.out.println("┗━━━━━━━┻━━━━━━┻━━━━━━━━━━┻━━━━━━━━━━━━━━━━━┻━━━━━━━┻━━━━━━━┛");
+    if (!table.getDepartureList().isEmpty()) {
+      // Print bottom border
+      System.out.println("┗━━━━━━━┻━━━━━━┻━━━━━━━━━━┻━━━━━━━━━━━━━━━━━┻━━━━━━━┻━━━━━━━┛");
+    }
   }
 
 
@@ -81,8 +83,8 @@ public class Renderer {
 
     // Print borders and current time window
     System.out.println("\n┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-    System.out.println("┃                  CURRENT TIME - " + table.getCurrentTime()
-        + "                     ┃");
+    System.out.println("┃                   CURRENT TIME - " + table.getCurrentTime()
+        + "                    ┃");
 
     // Print borders and "NO DEPARTURES"-window if there are no departures
     if (table.getDepartureList().isEmpty()) {
