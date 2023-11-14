@@ -22,10 +22,7 @@ public class UpdateClock {
       Halt.pressEnterToContinue();
 
     } else {
-      int hour = Integer.parseInt(input.substring(0, 2));
-      int minute = Integer.parseInt(input.substring(3, 5));
-
-      LocalTime newTime = LocalTime.of(hour, minute);
+      LocalTime newTime = LocalTime.parse(input);
 
       if (newTime.isBefore(table.getCurrentTime()) || newTime.equals(table.getCurrentTime())) {
         System.out.println("The new time is before or equal to the current time, "
