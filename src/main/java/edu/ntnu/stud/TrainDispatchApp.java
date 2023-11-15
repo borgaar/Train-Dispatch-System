@@ -2,6 +2,7 @@ package edu.ntnu.stud;
 
 import edu.ntnu.stud.commands.CreateDeparture;
 import edu.ntnu.stud.commands.PrintDepartures;
+import edu.ntnu.stud.commands.RemoveDeparture;
 import edu.ntnu.stud.commands.UpdateClock;
 import edu.ntnu.stud.input.InputHandler;
 import edu.ntnu.stud.models.DepartureTable;
@@ -84,7 +85,7 @@ public class TrainDispatchApp {
         case 1 -> PrintDepartures.print(table);
         case 2 -> UpdateClock.updateClock(table);
         case 3 -> CreateDeparture.create(table);
-        case 4 -> System.out.println("Not yet implemented");
+        case 4 -> RemoveDeparture.removeDepartureByTrainId(table);
         case 5 -> System.out.println("Not yet implemented");
         case 6 -> System.out.println("Not yet implemented");
         case 7 -> System.out.println("Not yet implemented");
