@@ -11,19 +11,29 @@ import edu.ntnu.stud.models.DepartureTable;
 import edu.ntnu.stud.models.TrainDeparture;
 import edu.ntnu.stud.utils.DepartureTableHandler;
 import edu.ntnu.stud.utils.Halt;
+import edu.ntnu.stud.utils.NoInputException;
+import edu.ntnu.stud.utils.Search;
 import java.time.LocalTime;
 import java.util.OptionalInt;
+import java.util.Random;
 
 /**
  * Class for adding a departure.
  */
 public class CreateDeparture {
+
+  private final InputHandler inputHandler;
+
+  public CreateDeparture(InputHandler inputHandler) {
+    this.inputHandler = inputHandler;
+  }
+
   /**
    * Method for creating a departure.
    *
    * @param table the departure table.
    */
-  public static void create(DepartureTable table) {
+  public void create(DepartureTable table) {
     try {
       final LocalTime delay = getDelay();
       final LocalTime time = getTime(table, delay);
@@ -35,12 +45,52 @@ public class CreateDeparture {
       DepartureTableHandler.addDeparture(table, new TrainDeparture(
           time, line, trainId, destination, delay, track));
     } catch (Exception e) {
-      Halt.abortOperation();
+      Halt.abortWithMessage("\nNo input detected.");
     }
   }
 
-  private static LocalTime getDelay() {
-    String timeString = InputHandler.getInput(
+  /**
+   * Method for getting the track of the departure.
+   *
+   * @return the track of the departure.
+   */
+  private OptionalInt getTrack() {
+    String trackString = inputHandler.getInput(
+        "Enter the track of the departure, "
+            + "or leave blank to set no track",
+        "[1-5]",
+        REGEX_TRACK_FORMAT,
+        true);
+
+    if (trackString.isEmpty()) {
+      return OptionalInt.empty();
+    }
+
+    return OptionalInt.of(Integer.parseInt(trackString));
+  }
+
+  /**
+   * Method for getting the destination of the departure.
+   *
+   * @return the destination of the departure.
+   */
+  private String getDestination() throws NoInputException {
+    String destination = inputHandler.getInput(
+        "Enter the destination of the departure, "
+            + "or leave blank to abort departure creation",
+        "[Any name]",
+        REGEX_DESTINATION_FORMAT,
+        true);
+
+    if (destination.isEmpty()) {
+      throw new NoInputException("Input was empty.");
+    }
+
+    return destination;
+  }
+
+  private LocalTime getDelay() throws NoInputException {
+    String timeString = inputHandler.getInput(
         "Enter the delay of the departure, "
             + "or leave blank to abort departure creation",
         "HH:MM",
@@ -48,14 +98,14 @@ public class CreateDeparture {
         true);
 
     if (timeString.isEmpty()) {
-      throw new IllegalArgumentException("Time cannot be empty. Aborting.");
+      throw new NoInputException("No input was detected.");
     }
 
     return LocalTime.parse(timeString);
   }
 
-  private static LocalTime getTime(DepartureTable table, LocalTime delay) {
-    String timeString = InputHandler.getInput(
+  private LocalTime getTime(DepartureTable table, LocalTime delay) throws NoInputException {
+    String timeString = inputHandler.getInput(
         "Enter the scheduled time of departure (departure time, without delay), "
             + "or leave blank to abort creation",
         "HH:MM",
@@ -63,7 +113,7 @@ public class CreateDeparture {
         true);
 
     if (timeString.isEmpty()) {
-      throw new IllegalArgumentException("Time cannot be empty. Aborting.");
+      throw new NoInputException("Input was empty.");
     }
 
     LocalTime time = LocalTime.parse(timeString);
@@ -71,14 +121,14 @@ public class CreateDeparture {
 
     if (adjustedTime.isBefore(time)) {
       System.out.println("\nThe scheduled departure time, " + time + ", plus the delay, " + delay
-          + ", results in a departure time past midnight. Please try again.");
+          + ", results in a departure time past midnight. Please enter a new time.");
       return getTime(table, delay);
 
     } else if (adjustedTime.isBefore(table.getCurrentTime())) {
       System.out.println("\nThe scheduled departure time, " + time + ", plus the delay, " + delay
           + ", results in a departure time of " + adjustedTime
           + ", which is before the current time, "
-          + table.getCurrentTime() + ". Please try again.");
+          + table.getCurrentTime() + ". Please enter a new time.");
       return getTime(table, delay);
 
     }
@@ -91,8 +141,8 @@ public class CreateDeparture {
    *
    * @return the line of the departure.
    */
-  public static String getLine() {
-    String line = InputHandler.getInput(
+  public String getLine() throws NoInputException {
+    String line = inputHandler.getInput(
         "Enter the line of the departure, "
             + "or leave blank to abort departure creation",
         "[ABCD][0-9]",
@@ -100,7 +150,7 @@ public class CreateDeparture {
         true);
 
     if (line.isEmpty()) {
-      throw new IllegalArgumentException("Line cannot be empty. Aborting.");
+      throw new NoInputException("Input was empty.");
     }
 
     return line;
@@ -112,16 +162,23 @@ public class CreateDeparture {
    * @param table the departure table.
    * @return the train ID of the departure.
    */
-  public static int getTrainId(DepartureTable table) {
-    String trainIdString = InputHandler.getInput(
+  public int getTrainId(DepartureTable table) {
+    String trainIdString = inputHandler.getInput(
         "Enter the train ID of the departure, "
-            + "or leave blank to abort departure creation",
+            + "or leave blank to autogenerate a unique ID",
         "[1000-9999]",
         REGEX_TRAINID_FORMAT,
         true);
 
     if (trainIdString.isEmpty()) {
-      throw new IllegalArgumentException("Train ID cannot be empty. Aborting.");
+      Random rnd = new Random();
+
+      int trainId;
+      do {
+        trainId = rnd.nextInt(0, 9000) + 1000;
+      } while (Search.getIndexByTrainId(table, trainId).isPresent());
+
+      return trainId;
     }
 
     int trainId = Integer.parseInt(trainIdString);
@@ -136,45 +193,5 @@ public class CreateDeparture {
     }
 
     return trainId;
-  }
-
-  /**
-   * Method for getting the destination of the departure.
-   *
-   * @return the destination of the departure.
-   */
-  public static String getDestination() {
-    String destination = InputHandler.getInput(
-        "Enter the destination of the departure, "
-            + "or leave blank to abort departure creation",
-        "[Any name]",
-        REGEX_DESTINATION_FORMAT,
-        true);
-
-    if (destination.isEmpty()) {
-      throw new IllegalArgumentException("Destination cannot be empty. Aborting.");
-    }
-
-    return destination;
-  }
-
-  /**
-   * Method for getting the track of the departure.
-   *
-   * @return the track of the departure.
-   */
-  public static OptionalInt getTrack() {
-    String trackString = InputHandler.getInput(
-        "Enter the track of the departure, "
-            + "or leave blank to set no track",
-        "[1-5]",
-        REGEX_TRACK_FORMAT,
-        true);
-
-    if (trackString.isEmpty()) {
-      return OptionalInt.empty();
-    }
-
-    return OptionalInt.of(Integer.parseInt(trackString));
   }
 }

@@ -4,6 +4,7 @@ import edu.ntnu.stud.commands.CreateDeparture;
 import edu.ntnu.stud.commands.PrintDepartures;
 import edu.ntnu.stud.commands.RemoveDeparture;
 import edu.ntnu.stud.commands.UpdateClock;
+import edu.ntnu.stud.input.GetInputFromStream;
 import edu.ntnu.stud.input.InputHandler;
 import edu.ntnu.stud.models.DepartureTable;
 import edu.ntnu.stud.models.TrainDeparture;
@@ -11,6 +12,7 @@ import edu.ntnu.stud.utils.DepartureTableHandler;
 import edu.ntnu.stud.utils.Renderer;
 import java.time.LocalTime;
 import java.util.OptionalInt;
+import java.util.Scanner;
 
 
 /**
@@ -19,6 +21,8 @@ import java.util.OptionalInt;
 public class TrainDispatchApp {
 
   private static DepartureTable table;
+  private static InputHandler inputHandler;
+  private static CreateDeparture departureCreator;
 
   public static void main(String[] args) {
     init();
@@ -29,6 +33,8 @@ public class TrainDispatchApp {
     System.out.println("Initializing...");
 
     table = new DepartureTable(LocalTime.of(12, 10));
+    inputHandler = new InputHandler(new GetInputFromStream(new Scanner(System.in)));
+    departureCreator = new CreateDeparture(inputHandler);
 
     // Creates a few pre-generated train departures
     DepartureTableHandler.addDeparture(table, new TrainDeparture(
@@ -75,7 +81,7 @@ public class TrainDispatchApp {
 
       Renderer.renderMenu();
 
-      choice = InputHandler.getInput(
+      choice = inputHandler.getInput(
           "Enter an option",
           "[1-8]",
           "[1-8]",
@@ -84,7 +90,7 @@ public class TrainDispatchApp {
       switch (choice) {
         case 1 -> PrintDepartures.print(table);
         case 2 -> UpdateClock.updateClock(table);
-        case 3 -> CreateDeparture.create(table);
+        case 3 -> departureCreator.create(table);
         case 4 -> RemoveDeparture.removeDepartureByTrainId(table);
         case 5 -> System.out.println("Not yet implemented");
         case 6 -> System.out.println("Not yet implemented");

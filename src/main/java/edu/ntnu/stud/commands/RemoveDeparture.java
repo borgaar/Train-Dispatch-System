@@ -13,13 +13,20 @@ import java.util.OptionalInt;
  * Class for removing a departure.
  */
 public class RemoveDeparture {
+  
+  private static InputHandler inputHandler;
+
+  public RemoveDeparture(InputHandler inputHandler) {
+    RemoveDeparture.inputHandler = inputHandler;
+  }
+
   /**
    * Method for removing a departure.
    *
    * @param table the departure table.
    */
   public static void removeDepartureByTrainId(DepartureTable table) {
-    String trainIdString = InputHandler.getInput(
+    String trainIdString = inputHandler.getInput(
         "Enter the train ID for the departure you want to remove, or leave blank to abort",
         "[1000-9999]",
         REGEX_TRAINID_FORMAT,

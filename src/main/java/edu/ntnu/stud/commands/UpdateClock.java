@@ -11,11 +11,18 @@ import java.time.LocalTime;
  * Class for updating the clock of the system.
  */
 public class UpdateClock {
+
+  private static InputHandler inputHandler;
+
+  public UpdateClock(InputHandler inputHandler) {
+    UpdateClock.inputHandler = inputHandler;
+  }
+
   /**
    * Updates the clock of the system.
    */
   public static void updateClock(DepartureTable table) {
-    String input = InputHandler.getInput("Enter new time, or leave blank to abort",
+    String input = inputHandler.getInput("Enter new time, or leave blank to abort",
         "HH:MM",
         REGEX_24HR_FORMAT,
         true);
