@@ -24,9 +24,4 @@ public class Halt {
     System.out.print(message + " ");
     abortOperation();
   }
-
-  public static void pressEnterToContinueWithMessage(String message) {
-    System.out.println(message + " ");
-    pressEnterToContinue();
-  }
 }
