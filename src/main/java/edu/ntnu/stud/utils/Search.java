@@ -1,7 +1,6 @@
 package edu.ntnu.stud.utils;
 
 import edu.ntnu.stud.models.DepartureTable;
-
 import java.util.OptionalInt;
 import java.util.stream.IntStream;
 

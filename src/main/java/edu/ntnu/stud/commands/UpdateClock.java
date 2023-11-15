@@ -1,8 +1,9 @@
 package edu.ntnu.stud.commands;
 
+import static edu.ntnu.stud.utils.Constants.REGEX_24HR_FORMAT;
+
 import edu.ntnu.stud.input.InputHandler;
 import edu.ntnu.stud.models.DepartureTable;
-import static edu.ntnu.stud.utils.Constants.REGEX_24HR_FORMAT;
 import edu.ntnu.stud.utils.Halt;
 import java.time.LocalTime;
 

@@ -1,10 +1,10 @@
 package edu.ntnu.stud.commands;
 
+import static edu.ntnu.stud.utils.Constants.*;
+
 import edu.ntnu.stud.input.InputHandler;
 import edu.ntnu.stud.models.DepartureTable;
 import edu.ntnu.stud.models.TrainDeparture;
-import static edu.ntnu.stud.utils.Constants.*;
-
 import edu.ntnu.stud.utils.DepartureTableHandler;
 import edu.ntnu.stud.utils.Halt;
 import java.time.LocalTime;
