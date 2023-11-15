@@ -4,6 +4,8 @@ import edu.ntnu.stud.input.InputHandler;
 import edu.ntnu.stud.models.DepartureTable;
 import edu.ntnu.stud.models.TrainDeparture;
 import static edu.ntnu.stud.utils.Constants.*;
+
+import edu.ntnu.stud.utils.DepartureTableHandler;
 import edu.ntnu.stud.utils.Halt;
 import java.time.LocalTime;
 import java.util.OptionalInt;
@@ -26,7 +28,8 @@ public class CreateDeparture {
       final String destination = getDestination();
       final OptionalInt track = getTrack();
 
-      table.addDeparture(new TrainDeparture(time, line, trainId, destination, delay, track));
+      DepartureTableHandler.addDeparture(table, new TrainDeparture(
+          time, line, trainId, destination, delay, track));
     } catch (Exception e) {
       Halt.abortOperation();
     }

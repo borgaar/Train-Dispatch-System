@@ -35,4 +35,12 @@ public class DepartureTableHandler {
     table.getDepartureList().removeIf(
         departure -> departure.getAdjustedTime().isBefore(table.getCurrentTime()));
   }
+
+  public static void addDeparture(DepartureTable table, TrainDeparture departure) {
+    table.getDepartureList().add(departure);
+  }
+
+  public static void removeDeparture(DepartureTable table, int index) {
+    table.getDepartureList().remove(index);
+  }
 }

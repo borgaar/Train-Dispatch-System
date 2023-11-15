@@ -26,13 +26,4 @@ public class DepartureTable {
   public void setCurrentTime(LocalTime time) {
     currentTime = time;
   }
-
-  /**
-   * Method for adding a departure to the Departure Table.
-   *
-   * @param departure The departure to be added.
-   */
-  public void addDeparture(TrainDeparture departure) {
-    departureList.add(departure);
-  }
 }
