@@ -1,6 +1,10 @@
 package edu.ntnu.stud.commands;
 
-import static edu.ntnu.stud.utils.Constants.*;
+import static edu.ntnu.stud.utils.Constants.REGEX_24HR_FORMAT;
+import static edu.ntnu.stud.utils.Constants.REGEX_DESTINATION_FORMAT;
+import static edu.ntnu.stud.utils.Constants.REGEX_LINE_FORMAT;
+import static edu.ntnu.stud.utils.Constants.REGEX_TRACK_FORMAT;
+import static edu.ntnu.stud.utils.Constants.REGEX_TRAINID_FORMAT;
 
 import edu.ntnu.stud.input.InputHandler;
 import edu.ntnu.stud.models.DepartureTable;
