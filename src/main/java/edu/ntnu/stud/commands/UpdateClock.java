@@ -20,8 +20,7 @@ public class UpdateClock {
         true);
 
     if (input.isEmpty()) {
-      System.out.println("\nAborting. The time has not been changed.");
-      Halt.pressEnterToContinue();
+      Halt.abortWithMessage("\nThe time has not been changed.");
 
     } else {
       LocalTime newTime = LocalTime.parse(input);

@@ -14,4 +14,19 @@ public class Halt {
     System.out.println("\nPress enter to continue...");
     sc.nextLine();
   }
+
+  public static void abortOperation() {
+    System.out.print("Aborting. ");
+    pressEnterToContinue();
+  }
+
+  public static void abortWithMessage(String message) {
+    System.out.print(message + " ");
+    abortOperation();
+  }
+
+  public static void pressEnterToContinueWithMessage(String message) {
+    System.out.println(message + " ");
+    pressEnterToContinue();
+  }
 }

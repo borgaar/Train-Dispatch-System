@@ -28,8 +28,7 @@ public class CreateDeparture {
 
       table.addDeparture(new TrainDeparture(time, line, trainId, destination, delay, track));
     } catch (Exception e) {
-      System.out.print("\nAborting. ");
-      Halt.pressEnterToContinue();
+      Halt.abortOperation();
     }
   }
 
