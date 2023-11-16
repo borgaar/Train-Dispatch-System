@@ -7,8 +7,14 @@ import edu.ntnu.stud.utils.Renderer;
 /**
  * Class for printing departures.
  */
-public class PrintDepartures {
-  public static void print(DepartureTable table) {
+public class PrintDeparturesCommand extends Command {
+
+  public PrintDeparturesCommand() {
+    super("Print all scheduled departures");
+  }
+
+  @Override
+  public void run(DepartureTable table) {
     Renderer.renderDepartureTable(table);
     Halt.pressEnterToContinue();
   }

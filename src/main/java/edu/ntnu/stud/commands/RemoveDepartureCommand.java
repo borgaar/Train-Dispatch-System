@@ -2,7 +2,6 @@ package edu.ntnu.stud.commands;
 
 import static edu.ntnu.stud.utils.Constants.REGEX_TRAINID_FORMAT;
 
-import edu.ntnu.stud.input.InputHandler;
 import edu.ntnu.stud.models.DepartureTable;
 import edu.ntnu.stud.utils.DepartureTableHandler;
 import edu.ntnu.stud.utils.Halt;
@@ -12,12 +11,10 @@ import java.util.OptionalInt;
 /**
  * Class for removing a departure.
  */
-public class RemoveDeparture {
-  
-  private static InputHandler inputHandler;
+public class RemoveDepartureCommand extends Command {
 
-  public RemoveDeparture(InputHandler inputHandler) {
-    RemoveDeparture.inputHandler = inputHandler;
+  public RemoveDepartureCommand() {
+    super("Remove a departure from the departure table");
   }
 
   /**
@@ -25,7 +22,9 @@ public class RemoveDeparture {
    *
    * @param table the departure table.
    */
-  public static void removeDepartureByTrainId(DepartureTable table) {
+
+  @Override
+  public void run(DepartureTable table) {
     String trainIdString = inputHandler.getInput(
         "Enter the train ID for the departure you want to remove, or leave blank to abort",
         "[1000-9999]",

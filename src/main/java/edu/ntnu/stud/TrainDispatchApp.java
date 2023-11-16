@@ -1,9 +1,13 @@
 package edu.ntnu.stud;
 
-import edu.ntnu.stud.commands.CreateDeparture;
-import edu.ntnu.stud.commands.PrintDepartures;
-import edu.ntnu.stud.commands.RemoveDeparture;
-import edu.ntnu.stud.commands.UpdateClock;
+import edu.ntnu.stud.commands.Command;
+import edu.ntnu.stud.commands.DepartureCreatorCommand;
+import edu.ntnu.stud.commands.PrintDeparturesCommand;
+import edu.ntnu.stud.commands.RemoveDepartureCommand;
+import edu.ntnu.stud.commands.SearchDepartureCommand;
+import edu.ntnu.stud.commands.SetDelayCommand;
+import edu.ntnu.stud.commands.SetTrackCommand;
+import edu.ntnu.stud.commands.UpdateClockCommand;
 import edu.ntnu.stud.input.GetInputFromStream;
 import edu.ntnu.stud.input.InputHandler;
 import edu.ntnu.stud.models.DepartureTable;
@@ -22,7 +26,14 @@ public class TrainDispatchApp {
 
   private static DepartureTable table;
   private static InputHandler inputHandler;
-  private static CreateDeparture departureCreator;
+  private final Command[] commands = {
+      new PrintDeparturesCommand(),
+      new UpdateClockCommand(),
+      new DepartureCreatorCommand(),
+      new RemoveDepartureCommand(),
+      new SetTrackCommand(),
+      new SetDelayCommand(),
+      new SearchDepartureCommand()};
 
   public static void main(String[] args) {
     init();
@@ -34,7 +45,6 @@ public class TrainDispatchApp {
 
     table = new DepartureTable(LocalTime.of(12, 10));
     inputHandler = new InputHandler(new GetInputFromStream(new Scanner(System.in)));
-    departureCreator = new CreateDeparture(inputHandler);
 
     // Creates a few pre-generated train departures
     DepartureTableHandler.addDeparture(table, new TrainDeparture(
@@ -89,9 +99,9 @@ public class TrainDispatchApp {
 
       switch (choice) {
         case 1 -> PrintDepartures.print(table);
-        case 2 -> UpdateClock.updateClock(table);
-        case 3 -> departureCreator.create(table);
-        case 4 -> RemoveDeparture.removeDepartureByTrainId(table);
+        case 2 -> UpdateClockCommand.updateClock(table);
+        case 3 -> departureCreator.run();
+        case 4 -> RemoveDepartureCommand.removeDepartureByTrainId(table);
         case 5 -> System.out.println("Not yet implemented");
         case 6 -> System.out.println("Not yet implemented");
         case 7 -> System.out.println("Not yet implemented");

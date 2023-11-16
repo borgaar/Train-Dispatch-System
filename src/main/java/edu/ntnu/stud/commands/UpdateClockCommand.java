@@ -2,7 +2,6 @@ package edu.ntnu.stud.commands;
 
 import static edu.ntnu.stud.utils.Constants.REGEX_24HR_FORMAT;
 
-import edu.ntnu.stud.input.InputHandler;
 import edu.ntnu.stud.models.DepartureTable;
 import edu.ntnu.stud.utils.Halt;
 import java.time.LocalTime;
@@ -10,18 +9,17 @@ import java.time.LocalTime;
 /**
  * Class for updating the clock of the system.
  */
-public class UpdateClock {
+public class UpdateClockCommand extends Command {
 
-  private static InputHandler inputHandler;
-
-  public UpdateClock(InputHandler inputHandler) {
-    UpdateClock.inputHandler = inputHandler;
+  public UpdateClockCommand() {
+    super("Update the clock of the system");
   }
 
   /**
    * Updates the clock of the system.
    */
-  public static void updateClock(DepartureTable table) {
+  @Override
+  public void run(DepartureTable table) {
     String input = inputHandler.getInput("Enter new time, or leave blank to abort",
         "HH:MM",
         REGEX_24HR_FORMAT,

@@ -22,7 +22,7 @@ public class Renderer {
         ┃  2  ┃ Update the current time                             ┃
         ┃  3  ┃ Add a departure to table                            ┃
         ┃  4  ┃ Remove a departure from table                       ┃
-        ┃  5  ┃ Set a track for a departure                         ┃
+        ┃  5  ┃ Set a new track for a departure                     ┃
         ┃  6  ┃ Set a new delay for a departure                     ┃
         ┃  7  ┃ Search for a train by Train ID or destination       ┃
         ┃  8  ┃ Exit the program                                    ┃

@@ -1,6 +1,7 @@
 package edu.ntnu.stud.models;
 
 import java.time.LocalTime;
+import java.util.Objects;
 import java.util.OptionalInt;
 
 /**
@@ -70,5 +71,10 @@ public class TrainDeparture {
 
   public LocalTime getAdjustedTime() {
     return time.plusHours(delay.getHour()).plusMinutes(delay.getMinute());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(time, line, trainId, destination, delay, track);
   }
 }
