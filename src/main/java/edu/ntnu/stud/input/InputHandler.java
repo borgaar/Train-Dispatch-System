@@ -1,13 +1,21 @@
 package edu.ntnu.stud.input;
 
+import static edu.ntnu.stud.utils.Constants.INVALID_INPUT_MESSAGE;
+
+import java.util.Scanner;
+
 /**
  * Class for handling input from the user.
  */
 public class InputHandler {
-  private final GetInputFromStream inputFromStream;
+  private final Scanner sc;
 
-  public InputHandler(GetInputFromStream inputFromStream) {
-    this.inputFromStream = inputFromStream;
+  public InputHandler(Scanner sc) {
+    this.sc = sc;
+  }
+
+  public InputHandler() {
+    sc = new Scanner(System.in);
   }
 
   /**
@@ -15,7 +23,7 @@ public class InputHandler {
    *
    * @param prompt       The prompt to show the user.
    * @param regex        The regex to match the input against.
-   * @param blankAllowed Whether or not blank input is allowed.
+   * @param blankAllowed Whether blank input is allowed.
    * @return The input from the user.
    */
   public String getInput(
@@ -24,15 +32,21 @@ public class InputHandler {
       String regex,
       boolean blankAllowed) {
 
-    String fullPrompt = prompt + " --> " + format + " --> ";
-    System.out.print(fullPrompt);
-    String input = inputFromStream.getString();
+    String input;
 
-    if (!input.matches(regex) && !(blankAllowed && input.isEmpty())) {
-      System.out.println("Invalid input. Try again.");
+    boolean inputIsInvalid;
+    do {
+      inputIsInvalid = false;
+      String fullPrompt = prompt + " --> " + format + " --> ";
       System.out.print(fullPrompt);
-      input = inputFromStream.getString();
-    }
+
+      input = sc.nextLine();
+
+      if (!input.matches(regex) && !(blankAllowed && input.isEmpty())) {
+        inputIsInvalid = true;
+        System.out.println(INVALID_INPUT_MESSAGE);
+      }
+    } while (inputIsInvalid);
 
     return input;
   }

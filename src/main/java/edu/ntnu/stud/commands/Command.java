@@ -12,7 +12,7 @@ public abstract class Command {
     this.name = name;
   }
 
-  public abstract void run(DepartureTable table);
+  public abstract void run(DepartureTable table) throws Exception;
 
   public String getName() {
     return name;

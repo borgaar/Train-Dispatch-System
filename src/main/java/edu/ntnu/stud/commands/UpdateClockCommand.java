@@ -2,6 +2,8 @@ package edu.ntnu.stud.commands;
 
 import static edu.ntnu.stud.utils.Constants.REGEX_24HR_FORMAT;
 
+import edu.ntnu.stud.exceptions.InvalidTimeException;
+import edu.ntnu.stud.input.InputHandler;
 import edu.ntnu.stud.models.DepartureTable;
 import edu.ntnu.stud.utils.Halt;
 import java.time.LocalTime;
@@ -11,35 +13,36 @@ import java.time.LocalTime;
  */
 public class UpdateClockCommand extends Command {
 
-  public UpdateClockCommand() {
+  InputHandler inputHandler;
+
+  public UpdateClockCommand(InputHandler inputHandler) {
     super("Update the clock of the system");
+    this.inputHandler = inputHandler;
   }
 
   /**
    * Updates the clock of the system.
    */
   @Override
-  public void run(DepartureTable table) {
+  public void run(DepartureTable table) throws InvalidTimeException {
     String input = inputHandler.getInput("Enter new time, or leave blank to abort",
         "HH:MM",
         REGEX_24HR_FORMAT,
         true);
 
     if (input.isEmpty()) {
-      Halt.abortWithMessage("\nThe time has not been changed.");
+      Halt.pressEnterToContinue("\nThe time has not been changed.");
 
     } else {
       LocalTime newTime = LocalTime.parse(input);
 
       if (newTime.isBefore(table.getCurrentTime()) || newTime.equals(table.getCurrentTime())) {
-        System.out.println("\nThe new time is before or equal to the current time, "
-            + "which is an invalid time. Please try again.");
-        updateClock(table);
+        throw new InvalidTimeException("The new time (" + newTime
+            + ") is before or equal to the current time (" + table.getCurrentTime() + ")");
 
       } else {
         table.setCurrentTime(newTime);
-        System.out.println("\nThe time has been changed to " + newTime);
-        Halt.pressEnterToContinue();
+        Halt.pressEnterToContinue("The time has been changed to " + newTime);
       }
     }
   }

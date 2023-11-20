@@ -15,13 +15,8 @@ public class Halt {
     sc.nextLine();
   }
 
-  public static void abortOperation() {
-    System.out.print("Aborting. ");
+  public static void pressEnterToContinue(String message) {
+    System.out.print("\n" + message + " ");
     pressEnterToContinue();
-  }
-
-  public static void abortWithMessage(String message) {
-    System.out.print(message + " ");
-    abortOperation();
   }
 }

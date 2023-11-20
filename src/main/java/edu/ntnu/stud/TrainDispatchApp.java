@@ -8,15 +8,14 @@ import edu.ntnu.stud.commands.SearchDepartureCommand;
 import edu.ntnu.stud.commands.SetDelayCommand;
 import edu.ntnu.stud.commands.SetTrackCommand;
 import edu.ntnu.stud.commands.UpdateClockCommand;
-import edu.ntnu.stud.input.GetInputFromStream;
 import edu.ntnu.stud.input.InputHandler;
 import edu.ntnu.stud.models.DepartureTable;
 import edu.ntnu.stud.models.TrainDeparture;
 import edu.ntnu.stud.utils.DepartureTableHandler;
+import edu.ntnu.stud.utils.Halt;
 import edu.ntnu.stud.utils.Renderer;
 import java.time.LocalTime;
 import java.util.OptionalInt;
-import java.util.Scanner;
 
 
 /**
@@ -25,15 +24,15 @@ import java.util.Scanner;
 public class TrainDispatchApp {
 
   private static DepartureTable table;
-  private static InputHandler inputHandler;
-  private final Command[] commands = {
+  private static InputHandler inputHandler = new InputHandler();
+  private static final Command[] commands = {
       new PrintDeparturesCommand(),
-      new UpdateClockCommand(),
-      new DepartureCreatorCommand(),
-      new RemoveDepartureCommand(),
-      new SetTrackCommand(),
-      new SetDelayCommand(),
-      new SearchDepartureCommand()};
+      new UpdateClockCommand(inputHandler),
+      new DepartureCreatorCommand(inputHandler, new java.util.Random()),
+      new RemoveDepartureCommand(inputHandler),
+      new SetTrackCommand(inputHandler),
+      new SetDelayCommand(inputHandler),
+      new SearchDepartureCommand(inputHandler)};
 
   public static void main(String[] args) {
     init();
@@ -44,7 +43,7 @@ public class TrainDispatchApp {
     System.out.println("Initializing...");
 
     table = new DepartureTable(LocalTime.of(12, 10));
-    inputHandler = new InputHandler(new GetInputFromStream(new Scanner(System.in)));
+    inputHandler = new InputHandler();
 
     // Creates a few pre-generated train departures
     DepartureTableHandler.addDeparture(table, new TrainDeparture(
@@ -89,27 +88,24 @@ public class TrainDispatchApp {
 
       DepartureTableHandler.updateDepartureTable(table);
 
-      Renderer.renderMenu();
+      Renderer.renderMenu(commands);
 
+      String regexAndPrompt = "[1-" + (commands.length + 1) + "]";
       choice = inputHandler.getInput(
           "Enter an option",
-          "[1-8]",
-          "[1-8]",
+          regexAndPrompt,
+          regexAndPrompt,
           false).charAt(0) - '0';
 
-      switch (choice) {
-        case 1 -> PrintDepartures.print(table);
-        case 2 -> UpdateClockCommand.updateClock(table);
-        case 3 -> departureCreator.run();
-        case 4 -> RemoveDepartureCommand.removeDepartureByTrainId(table);
-        case 5 -> System.out.println("Not yet implemented");
-        case 6 -> System.out.println("Not yet implemented");
-        case 7 -> System.out.println("Not yet implemented");
-        case 8 -> {
+      try {
+        if (choice == commands.length + 1) {
           System.out.println("Exiting...");
-          System.exit(0);
+          break;
         }
-        default -> System.out.println("Invalid input. Try again.");
+        commands[choice - 1].run(table);
+
+      } catch (Exception e) {
+        Halt.pressEnterToContinue("An error occurred: " + e.getMessage());
       }
     }
   }

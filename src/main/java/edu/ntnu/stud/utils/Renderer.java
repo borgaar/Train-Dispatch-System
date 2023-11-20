@@ -1,6 +1,8 @@
 package edu.ntnu.stud.utils;
 
+import edu.ntnu.stud.commands.Command;
 import edu.ntnu.stud.models.DepartureTable;
+import edu.ntnu.stud.models.TrainDeparture;
 import java.time.LocalTime;
 
 /**
@@ -11,21 +13,31 @@ public class Renderer {
   /**
    * Renders the main menu options.
    */
-  public static void renderMenu() {
-    System.out.println("""
+  public static void renderMenu(Command[] commands) {
+    System.out.print("""
+                
         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
         ┃                         MAIN MENU                         ┃
         ┣━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
         ┃ Num ┃ Action to be performed                              ┃
         ┠╌╌╌╌╌╂╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┨
-        ┃  1  ┃ Print departure table                               ┃
-        ┃  2  ┃ Update the current time                             ┃
-        ┃  3  ┃ Add a departure to table                            ┃
-        ┃  4  ┃ Remove a departure from table                       ┃
-        ┃  5  ┃ Set a new track for a departure                     ┃
-        ┃  6  ┃ Set a new delay for a departure                     ┃
-        ┃  7  ┃ Search for a train by Train ID or destination       ┃
-        ┃  8  ┃ Exit the program                                    ┃
+        """);
+
+    for (int i = 0; i < commands.length; i++) {
+      System.out.print(TextMutilation.formatToTableEntry(
+          Integer.toString(i + 1),
+          3,
+          false,
+          false));
+      System.out.print(TextMutilation.formatToTableEntry(commands[i].getName(),
+          51,
+          true,
+          true));
+    }
+
+    System.out.println("┃  " + (commands.length + 1)
+        + "  ┃ Exit the application                                ┃");
+    System.out.println("""
         ┗━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
                 """);
   }
@@ -63,7 +75,7 @@ public class Renderer {
           5,
           false,
           false));
-      System.out.println(TextMutilation.formatToTableEntry(
+      System.out.print(TextMutilation.formatToTableEntry(
           departure.getTrack().isPresent()
               ? Integer.toString(departure.getTrack().getAsInt())
               : " ",
@@ -100,4 +112,89 @@ public class Renderer {
     }
   }
 
+  /**
+   * Method for rendering the details of a train departure.
+   *
+   * @param trainDeparture The train departure to be rendered.
+   */
+  public static void renderDetails(TrainDeparture trainDeparture) {
+    System.out.print("""
+                
+        ┏━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┓
+        ┃    Details    ┃       Values       ┃
+        ┠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╂╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┨
+        """);
+
+    System.out.print(TextMutilation.formatToTableEntry(
+        "Time w/ delay",
+        13,
+        false,
+        true));
+    System.out.print(TextMutilation.formatToTableEntry(
+        trainDeparture.getAdjustedTime().toString(),
+        18,
+        true,
+        true));
+
+    System.out.print(TextMutilation.formatToTableEntry(
+        "Line",
+        13,
+        false,
+        true));
+    System.out.print(TextMutilation.formatToTableEntry(
+        trainDeparture.getLine(),
+        18,
+        true,
+        true));
+
+    System.out.print(TextMutilation.formatToTableEntry(
+        "Train ID",
+        13,
+        false,
+        true));
+    System.out.print(TextMutilation.formatToTableEntry(
+        trainDeparture.getTrainId().toString(),
+        18,
+        true,
+        true));
+
+    System.out.print(TextMutilation.formatToTableEntry(
+        "Destination",
+        13,
+        false,
+        true));
+    System.out.print(TextMutilation.formatToTableEntry(
+        trainDeparture.getDestination().toUpperCase(),
+        18,
+        true,
+        true));
+
+    System.out.print(TextMutilation.formatToTableEntry(
+        "Delay",
+        13,
+        false,
+        true));
+    System.out.print(TextMutilation.formatToTableEntry(
+        trainDeparture.getDelay().equals(LocalTime.of(0, 0))
+            ? " "
+            : trainDeparture.getDelay().toString(),
+        18,
+        true,
+        true));
+
+    System.out.print(TextMutilation.formatToTableEntry(
+        "Track",
+        13,
+        false,
+        true));
+    System.out.print(TextMutilation.formatToTableEntry(
+        trainDeparture.getTrack().isPresent()
+            ? Integer.toString(trainDeparture.getTrack().getAsInt())
+            : " ",
+        18,
+        true,
+        true));
+
+    System.out.println("┗━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┛");
+  }
 }

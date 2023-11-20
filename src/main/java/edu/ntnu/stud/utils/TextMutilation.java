@@ -13,7 +13,7 @@ public class TextMutilation {
    * @param leftAlign    Whether to left align the entry or not
    * @return The formatted entry
    */
-  public static String formatToLength(String entry, int targetLength, boolean leftAlign) {
+  private static String formatToLength(String entry, int targetLength, boolean leftAlign) {
     if (entry.length() > targetLength) {
       return entry.substring(0, targetLength - 2) + "..";
 
@@ -42,7 +42,7 @@ public class TextMutilation {
 
     String formattedEntry = formatToLength(entry, targetLength, leftAlign);
     formattedEntry = formattedEntry.length() < targetLength ? formattedEntry + " " : formattedEntry;
-    formattedEntry = lastColumn ? formattedEntry + " ┃" : formattedEntry + " ";
+    formattedEntry = lastColumn ? formattedEntry + " ┃\n" : formattedEntry + " ";
 
     return "┃ " + formattedEntry;
   }
