@@ -60,7 +60,8 @@ public class TrainDispatchApp {
         new TrainDeparture(
             LocalTime.of(18, 56), "A1", 3477, "Oslo", LocalTime.of(0, 23), OptionalInt.of(2)),
         new TrainDeparture(
-            LocalTime.of(12, 10), "B5", 1523, "Kristiansand", LocalTime.of(0, 0), OptionalInt.of(2)),
+            LocalTime.of(12, 10), "B5", 1523, "Kristiansand", LocalTime.of(0, 0),
+            OptionalInt.of(2)),
         new TrainDeparture(
             LocalTime.of(23, 30), "B8", 9785, "Ålesund", LocalTime.of(0, 0), OptionalInt.of(1)),
         new TrainDeparture(
@@ -72,7 +73,8 @@ public class TrainDispatchApp {
         new TrainDeparture(
             LocalTime.of(3, 10), "D4", 1863, "Stavanger", LocalTime.of(0, 0), OptionalInt.of(4)),
         new TrainDeparture(
-            LocalTime.of(14, 15), "C4", 9364, "Norges teknisk-naturvitenskapelige universitet", LocalTime.of(0, 0), OptionalInt.empty()),
+            LocalTime.of(14, 15), "C4", 9364, "Norges teknisk-naturvitenskapelige universitet",
+            LocalTime.of(0, 0), OptionalInt.empty()),
         new TrainDeparture(
             LocalTime.of(22, 55), "C3", 3747, "Trondheim", LocalTime.of(0, 0), OptionalInt.empty()),
         new TrainDeparture(
