@@ -35,8 +35,6 @@ public class Renderer {
           true));
     }
 
-    System.out.println("┃  " + (commands.length + 1)
-        + "  ┃ Exit the application                                ┃");
     System.out.println("""
         ┗━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
                 """);

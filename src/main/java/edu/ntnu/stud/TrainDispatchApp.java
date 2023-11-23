@@ -2,6 +2,7 @@ package edu.ntnu.stud;
 
 import edu.ntnu.stud.commands.Command;
 import edu.ntnu.stud.commands.DepartureCreatorCommand;
+import edu.ntnu.stud.commands.ExitApplicationCommand;
 import edu.ntnu.stud.commands.PrintDeparturesCommand;
 import edu.ntnu.stud.commands.RemoveDepartureCommand;
 import edu.ntnu.stud.commands.SearchDepartureCommand;
@@ -32,7 +33,8 @@ public class TrainDispatchApp {
       new RemoveDepartureCommand(inputHandler),
       new SetTrackCommand(inputHandler),
       new SetDelayCommand(inputHandler),
-      new SearchDepartureCommand(inputHandler)};
+      new SearchDepartureCommand(inputHandler),
+      new ExitApplicationCommand()};
 
   public static void main(String[] args) {
     init();
@@ -101,12 +103,7 @@ public class TrainDispatchApp {
           false).charAt(0) - '0';
 
       try {
-        if (choice == commands.length + 1) {
-          System.out.println("Exiting...");
-          break;
-        }
         commands[choice - 1].run(table);
-
       } catch (Exception e) {
         Halt.pressEnterToContinue("An error occurred: " + e.getMessage());
       }
