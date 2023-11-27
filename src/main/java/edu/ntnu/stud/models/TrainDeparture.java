@@ -72,9 +72,4 @@ public class TrainDeparture {
   public LocalTime getAdjustedTime() {
     return time.plusHours(delay.getHour()).plusMinutes(delay.getMinute());
   }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(time, line, trainId, destination, delay, track);
-  }
 }
