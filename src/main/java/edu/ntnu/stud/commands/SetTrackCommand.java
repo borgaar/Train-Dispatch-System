@@ -40,8 +40,8 @@ public class SetTrackCommand extends Command {
     String trackString = inputHandler.getInput(
         "Enter the new track for the departure "
             + "(blank for no track). "
-            + (table.getDepartureList().get(index).getTrack() != -1
-            ? "Current track is " + table.getDepartureList().get(index).getTrack()
+            + (table.getDepartureAt(index).getTrack() != -1
+            ? "Current track is " + table.getDepartureAt(index).getTrack()
             : "The departure currently has no track assigned to it"),
         "[1-5]",
         REGEX_TRACK_FORMAT,
@@ -56,6 +56,6 @@ public class SetTrackCommand extends Command {
       Halt.pressEnterToContinue("The track has been changed to " + track);
     }
 
-    table.getDepartureList().get(index).setTrack(track);
+    table.getDepartureAt(index).setTrack(track);
   }
 }

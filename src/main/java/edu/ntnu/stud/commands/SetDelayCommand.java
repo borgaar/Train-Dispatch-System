@@ -40,7 +40,7 @@ public class SetDelayCommand extends Command {
     String delayString = inputHandler.getInput(
         "Enter the new delay for the departure "
             + "(blank for no delay). Current delay is "
-            + table.getDepartureList().get(index).getDelay(),
+            + table.getDepartureAt(index).getDelay(),
         "[HH:MM]",
         REGEX_24HR_FORMAT,
         true);
@@ -52,7 +52,7 @@ public class SetDelayCommand extends Command {
       delay = LocalTime.parse(delayString);
     }
 
-    LocalTime newAdjustedTime = table.getDepartureList().get(index).getTime()
+    LocalTime newAdjustedTime = table.getDepartureAt(index).getTime()
         .plusHours(delay.getHour())
         .plusMinutes(delay.getMinute());
 
@@ -67,6 +67,6 @@ public class SetDelayCommand extends Command {
       Halt.pressEnterToContinue("The delay for departure " + trainId + " changed to " + delay);
     }
 
-    table.getDepartureList().get(index).setDelay(delay);
+    table.getDepartureAt(index).setDelay(delay);
   }
 }

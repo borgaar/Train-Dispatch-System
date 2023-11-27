@@ -30,7 +30,7 @@ public class Search {
 
   private static OptionalInt getIndex(DepartureTable table, int trainId) {
     return IntStream.range(0, table.getDepartureList().size())
-        .filter(i -> table.getDepartureList().get(i).getTrainId() == trainId)
+        .filter(i -> table.getDepartureAt(i).getTrainId() == trainId)
         .findFirst();
   }
 }

@@ -20,6 +20,10 @@ public class DepartureTable {
     return departureList;
   }
 
+  public TrainDeparture getDepartureAt(int index) {
+    return departureList.get(index);
+  }
+
   public LocalTime getCurrentTime() {
     return currentTime;
   }
