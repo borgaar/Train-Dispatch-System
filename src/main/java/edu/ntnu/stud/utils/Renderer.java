@@ -24,15 +24,15 @@ public class Renderer {
         """);
 
     for (int i = 0; i < commands.length; i++) {
-      System.out.print(formatToTableEntry(
+      printAsTableEntry(
           Integer.toString(i + 1),
           3,
           false,
-          false));
-      System.out.print(formatToTableEntry(commands[i].getName(),
+          false);
+      printAsTableEntry(commands[i].getName(),
           51,
           true,
-          true));
+          true);
     }
 
     System.out.println("""
@@ -50,36 +50,36 @@ public class Renderer {
     printHeaders(table);
 
     table.getDepartureList().forEach(departure -> {
-      System.out.print(formatToTableEntry(departure.getAdjustedTime().toString(),
+      printAsTableEntry(departure.getAdjustedTime().toString(),
           5,
           false,
-          false));
-      System.out.print(formatToTableEntry(departure.getLine(),
+          false);
+      printAsTableEntry(departure.getLine(),
           4,
           false,
-          false));
-      System.out.print(formatToTableEntry(departure.getTrainId().toString(),
+          false);
+      printAsTableEntry(departure.getTrainId().toString(),
           8,
           false,
-          false));
-      System.out.print(formatToTableEntry(departure.getDestination().toUpperCase(),
+          false);
+      printAsTableEntry(departure.getDestination().toUpperCase(),
           15,
           false,
-          true));
-      System.out.print(formatToTableEntry(
+          true);
+      printAsTableEntry(
           departure.getDelay().equals(LocalTime.of(0, 0))
               ? " "
               : departure.getDelay().toString(),
           5,
           false,
-          false));
-      System.out.print(formatToTableEntry(
+          false);
+      printAsTableEntry(
           departure.getTrack() == -1
               ? " "
               : Integer.toString(departure.getTrack()),
           5,
           true,
-          false));
+          false);
     });
 
     if (!table.getDepartureList().isEmpty()) {
@@ -123,75 +123,75 @@ public class Renderer {
         ┠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╂╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┨
         """);
 
-    System.out.print(formatToTableEntry(
+    printAsTableEntry(
         "Time w/ delay",
         13,
         false,
-        true));
-    System.out.print(formatToTableEntry(
+        true);
+    printAsTableEntry(
         trainDeparture.getAdjustedTime().toString(),
         18,
         true,
-        true));
+        true);
 
-    System.out.print(formatToTableEntry(
+    printAsTableEntry(
         "Line",
         13,
         false,
-        true));
-    System.out.print(formatToTableEntry(
+        true);
+    printAsTableEntry(
         trainDeparture.getLine(),
         18,
         true,
-        true));
+        true);
 
-    System.out.print(formatToTableEntry(
+    printAsTableEntry(
         "Train ID",
         13,
         false,
-        true));
-    System.out.print(formatToTableEntry(
+        true);
+    printAsTableEntry(
         trainDeparture.getTrainId().toString(),
         18,
         true,
-        true));
+        true);
 
-    System.out.print(formatToTableEntry(
+    printAsTableEntry(
         "Destination",
         13,
         false,
-        true));
-    System.out.print(formatToTableEntry(
+        true);
+    printAsTableEntry(
         trainDeparture.getDestination().toUpperCase(),
         18,
         true,
-        true));
+        true);
 
-    System.out.print(formatToTableEntry(
+    printAsTableEntry(
         "Delay",
         13,
         false,
-        true));
-    System.out.print(formatToTableEntry(
+        true);
+    printAsTableEntry(
         trainDeparture.getDelay().equals(LocalTime.of(0, 0))
-            ? " "
+            ? "No delay"
             : trainDeparture.getDelay().toString(),
         18,
         true,
-        true));
+        true);
 
-    System.out.print(formatToTableEntry(
+    printAsTableEntry(
         "Track",
         13,
         false,
-        true));
-    System.out.print(formatToTableEntry(
+        true);
+    printAsTableEntry(
         trainDeparture.getTrack() != -1
-            ? " "
-            : Integer.toString(trainDeparture.getTrack()),
+            ? Integer.toString(trainDeparture.getTrack())
+            : "None assigned",
         18,
         true,
-        true));
+        true);
 
     System.out.println("┗━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┛");
   }
@@ -216,17 +216,16 @@ public class Renderer {
    * @param targetLength The length to format the entry to
    * @param lastColumn   Whether the entry is in the last column in a table
    * @param leftAlign    Whether to left align the entry or not
-   * @return The formatted entry
    */
-  private static String formatToTableEntry(String entry,
-                                           int targetLength,
-                                           boolean lastColumn,
-                                           boolean leftAlign) {
+  private static void printAsTableEntry(String entry,
+                                        int targetLength,
+                                        boolean lastColumn,
+                                        boolean leftAlign) {
 
     String formattedEntry = formatToLength(entry, targetLength, leftAlign);
     formattedEntry = formattedEntry.length() < targetLength ? formattedEntry + " " : formattedEntry;
     formattedEntry = lastColumn ? formattedEntry + " ┃\n" : formattedEntry + " ";
 
-    return "┃ " + formattedEntry;
+    System.out.print("┃ " + formattedEntry);
   }
 }
