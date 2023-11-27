@@ -89,6 +89,7 @@ public class TrainDispatchApp {
 
     int choice;
 
+    //noinspection InfiniteLoopStatement
     while (true) {
 
       table.updateDepartureTable();
