@@ -14,7 +14,7 @@ class TrainDepartureTest {
       1234,
       "Oslo",
       LocalTime.of(0, 15),
-      OptionalInt.of(1));
+      1);
 
   @Test
   void getTime() {
@@ -26,21 +26,21 @@ class TrainDepartureTest {
 
   @Test
   void getTrack() {
-    OptionalInt expected = OptionalInt.of(1);
-    OptionalInt actual = departure.getTrack();
+    int expected = 1;
+    int actual = departure.getTrack();
 
     assertEquals(expected, actual);
   }
 
   @Test
   void setTrack() {
-    OptionalInt expected = OptionalInt.of(2);
+    int expected = 2;
     departure.setTrack(expected);
-    OptionalInt actual = departure.getTrack();
+    int actual = departure.getTrack();
 
     assertEquals(expected, actual);
 
-    expected = OptionalInt.empty();
+    expected = -1;
     departure.setTrack(expected);
     actual = departure.getTrack();
 
@@ -57,8 +57,8 @@ class TrainDepartureTest {
 
   @Test
   void getTrainId() {
-    Integer expected = 1234;
-    Integer actual = departure.getTrainId();
+    int expected = 1234;
+    int actual = departure.getTrainId();
 
     assertEquals(expected, actual);
   }
