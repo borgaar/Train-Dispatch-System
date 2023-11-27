@@ -23,18 +23,15 @@ import java.util.Random;
  */
 public class DepartureCreatorCommand extends Command {
 
-  private final InputHandler inputHandler;
   private final Random random;
 
   /**
    * Constructor for the DepartureCreatorCommand class.
    *
-   * @param inputHandler the input handler.
    * @param random       the random number generator.
    */
-  public DepartureCreatorCommand(InputHandler inputHandler, Random random) {
+  public DepartureCreatorCommand(Random random) {
     super("Add a departure to the departure table");
-    this.inputHandler = inputHandler;
     this.random = random;
   }
 
@@ -62,7 +59,7 @@ public class DepartureCreatorCommand extends Command {
         REGEX_LINE_FORMAT,
         false);
 
-    int trainId = getTrainId(table);
+    int trainId = getTrainId(table, inputHandler);
 
     String destination = inputHandler.getInput(
         "Enter the destination of the departure",
@@ -70,11 +67,11 @@ public class DepartureCreatorCommand extends Command {
         REGEX_DESTINATION_FORMAT,
         false);
 
-    int track = getTrack();
+    int track = getTrack(inputHandler);
 
     TrainDeparture departure = new TrainDeparture(time, line, trainId, destination, delay, track);
 
-    verifyDetails(table, departure);
+    verifyDetails(table, inputHandler, departure);
   }
 
   private void isTimeValid(
@@ -113,7 +110,8 @@ public class DepartureCreatorCommand extends Command {
         .filter(departure -> departure.getTrainId() == trainId).findAny().isEmpty();
   }
 
-  private int getTrainId(DepartureTable table) throws InvalidDepartureException {
+  private int getTrainId(DepartureTable table,
+                         InputHandler inputHandler) throws InvalidDepartureException {
     String trainIdString = inputHandler.getInput(
         "Enter a unique train ID for the departure, or leave blank to autogenerate",
         "[1000-9999]",
@@ -131,7 +129,7 @@ public class DepartureCreatorCommand extends Command {
     }
   }
 
-  private int getTrack() {
+  private int getTrack(InputHandler inputHandler) {
     String trackString = inputHandler.getInput(
         "Enter the track of the departure, or leave blank if unknown",
         "[1-5]",
@@ -145,7 +143,8 @@ public class DepartureCreatorCommand extends Command {
     }
   }
 
-  private void verifyDetails(DepartureTable table, TrainDeparture departure) {
+  private void verifyDetails(DepartureTable table,
+                             InputHandler inputHandler, TrainDeparture departure) {
     Renderer.renderDetails(departure);
     String isCorrectAnswer = inputHandler.getInput(
         "Is this correct?",

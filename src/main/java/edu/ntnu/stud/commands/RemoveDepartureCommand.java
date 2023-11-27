@@ -3,7 +3,6 @@ package edu.ntnu.stud.commands;
 import static edu.ntnu.stud.utils.Constants.REGEX_TRAINID_FORMAT;
 
 import edu.ntnu.stud.exceptions.NoDepartureFoundException;
-import edu.ntnu.stud.input.InputHandler;
 import edu.ntnu.stud.models.DepartureTable;
 import edu.ntnu.stud.utils.DepartureTableHandler;
 import edu.ntnu.stud.utils.Halt;
@@ -14,11 +13,8 @@ import edu.ntnu.stud.utils.Search;
  */
 public class RemoveDepartureCommand extends Command {
 
-  private final InputHandler inputHandler;
-
-  public RemoveDepartureCommand(InputHandler inputHandler) {
+  public RemoveDepartureCommand() {
     super("Remove a departure from the departure table");
-    this.inputHandler = inputHandler;
   }
 
   /**

@@ -15,11 +15,8 @@ import java.util.OptionalInt;
  */
 public class SetTrackCommand extends Command {
 
-  InputHandler inputHandler;
-
-  public SetTrackCommand(InputHandler inputHandler) {
+  public SetTrackCommand() {
     super("Change the track of a departure");
-    this.inputHandler = inputHandler;
   }
 
 

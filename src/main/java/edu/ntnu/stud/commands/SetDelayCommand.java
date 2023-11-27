@@ -16,11 +16,8 @@ import java.time.LocalTime;
  */
 public class SetDelayCommand extends Command {
 
-  InputHandler inputHandler;
-
-  public SetDelayCommand(InputHandler inputHandler) {
+  public SetDelayCommand() {
     super("Set a new delay for a departure");
-    this.inputHandler = inputHandler;
   }
 
   @Override

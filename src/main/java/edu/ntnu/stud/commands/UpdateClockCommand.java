@@ -13,11 +13,8 @@ import java.time.LocalTime;
  */
 public class UpdateClockCommand extends Command {
 
-  InputHandler inputHandler;
-
-  public UpdateClockCommand(InputHandler inputHandler) {
+  public UpdateClockCommand() {
     super("Update the clock of the system");
-    this.inputHandler = inputHandler;
   }
 
   /**

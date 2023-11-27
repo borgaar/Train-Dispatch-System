@@ -14,11 +14,8 @@ import java.util.List;
  */
 public class SearchDepartureCommand extends Command {
 
-  private final InputHandler inputHandler;
-
-  public SearchDepartureCommand(InputHandler inputHandler) {
+  public SearchDepartureCommand() {
     super("Search for departure details");
-    this.inputHandler = inputHandler;
   }
 
   @Override

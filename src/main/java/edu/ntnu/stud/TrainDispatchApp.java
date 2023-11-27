@@ -24,15 +24,15 @@ import java.time.LocalTime;
 public class TrainDispatchApp {
 
   private static DepartureTable table;
-  private static InputHandler inputHandler = new InputHandler();
+  private static InputHandler inputHandler;
   private static final Command[] commands = {
       new PrintDeparturesCommand(),
-      new UpdateClockCommand(inputHandler),
-      new DepartureCreatorCommand(inputHandler, new java.util.Random()),
-      new RemoveDepartureCommand(inputHandler),
-      new SetTrackCommand(inputHandler),
-      new SetDelayCommand(inputHandler),
-      new SearchDepartureCommand(inputHandler),
+      new UpdateClockCommand(),
+      new DepartureCreatorCommand(new java.util.Random()),
+      new RemoveDepartureCommand(),
+      new SetTrackCommand(),
+      new SetDelayCommand(),
+      new SearchDepartureCommand(),
       new ExitApplicationCommand()};
 
   public static void main(String[] args) {
@@ -97,11 +97,11 @@ public class TrainDispatchApp {
       Renderer.renderMenu(commands);
 
       String regexAndPrompt = "[1-" + (commands.length + 1) + "]";
-      choice = inputHandler.getInput(
+      choice = Integer.parseInt(inputHandler.getInput(
           "Enter an option",
           regexAndPrompt,
           regexAndPrompt,
-          false).charAt(0) - '0';
+          false));
 
       try {
         commands[choice - 1].run(table);
