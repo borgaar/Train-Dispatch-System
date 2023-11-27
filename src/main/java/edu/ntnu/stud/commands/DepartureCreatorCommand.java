@@ -26,7 +26,7 @@ public class DepartureCreatorCommand extends Command {
   /**
    * Constructor for the DepartureCreatorCommand class.
    *
-   * @param random       the random number generator.
+   * @param random the random number generator.
    */
   public DepartureCreatorCommand(Random random) {
     super("Add a departure to the departure table");
