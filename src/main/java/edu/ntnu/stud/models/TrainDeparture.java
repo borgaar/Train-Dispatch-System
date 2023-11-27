@@ -27,8 +27,12 @@ public class TrainDeparture {
    */
   // Constructor
   public TrainDeparture(
-      LocalTime time, String line, Integer trainId,
-      String destination, LocalTime delay, OptionalInt track) {
+      LocalTime time,
+      String line,
+      Integer trainId,
+      String destination,
+      LocalTime delay,
+      OptionalInt track) {
     this.time = time;
     this.line = line;
     this.trainId = trainId;
@@ -43,10 +47,6 @@ public class TrainDeparture {
 
   public OptionalInt getTrack() {
     return track;
-  }
-
-  public void setTrack(OptionalInt track) {
-    this.track = track;
   }
 
   public String getLine() {
@@ -65,11 +65,15 @@ public class TrainDeparture {
     return delay;
   }
 
+  public LocalTime getAdjustedTime() {
+    return time.plusHours(delay.getHour()).plusMinutes(delay.getMinute());
+  }
+
   public void setDelay(LocalTime delay) {
     this.delay = delay;
   }
 
-  public LocalTime getAdjustedTime() {
-    return time.plusHours(delay.getHour()).plusMinutes(delay.getMinute());
+  public void setTrack(OptionalInt track) {
+    this.track = track;
   }
 }
