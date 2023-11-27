@@ -41,8 +41,8 @@ public class SearchDepartureCommand extends Command {
         .toList();
 
     if (matchedDepartures.isEmpty()) {
-      Halt.pressEnterToContinue("No departures with the search-query '" + searchQuery
-          + "' found.");
+      Halt.pressEnterToContinue("No departures with the search query '" + searchQuery
+          + "' was found.");
     } else {
       matchedDepartures.forEach(Renderer::renderDetails);
       Halt.pressEnterToContinue();
