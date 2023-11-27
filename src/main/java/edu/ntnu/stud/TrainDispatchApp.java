@@ -22,8 +22,6 @@ import java.time.LocalTime;
  */
 public class TrainDispatchApp {
 
-  private static DepartureTable table;
-  private static InputHandler inputHandler;
   private static final Command[] commands = {
       new PrintDeparturesCommand(),
       new UpdateClockCommand(),
@@ -33,6 +31,8 @@ public class TrainDispatchApp {
       new SetDelayCommand(),
       new SearchDepartureCommand(),
       new ExitApplicationCommand()};
+  private static DepartureTable table;
+  private static InputHandler inputHandler;
 
   public static void main(String[] args) {
     init();
@@ -96,7 +96,7 @@ public class TrainDispatchApp {
 
       Renderer.renderMenu(commands);
 
-      String regexAndPrompt = "[1-" + (commands.length + 1) + "]";
+      String regexAndPrompt = "[1-" + (commands.length) + "]";
       choice = Integer.parseInt(inputHandler.getInput(
           "Enter an option",
           regexAndPrompt,
