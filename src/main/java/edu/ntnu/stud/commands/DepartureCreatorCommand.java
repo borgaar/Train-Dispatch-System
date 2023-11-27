@@ -11,7 +11,6 @@ import edu.ntnu.stud.exceptions.InvalidDepartureException;
 import edu.ntnu.stud.input.InputHandler;
 import edu.ntnu.stud.models.DepartureTable;
 import edu.ntnu.stud.models.TrainDeparture;
-import edu.ntnu.stud.utils.DepartureTableHandler;
 import edu.ntnu.stud.utils.Halt;
 import edu.ntnu.stud.utils.Renderer;
 import java.time.LocalTime;
@@ -153,9 +152,7 @@ public class DepartureCreatorCommand extends Command {
         true);
 
     if (isCorrectAnswer.isEmpty() || isCorrectAnswer.equalsIgnoreCase("Y")) {
-      DepartureTableHandler.addDeparture(
-          table,
-          departure);
+      table.addDeparture(departure);
       Halt.pressEnterToContinue("The departure has been added.");
 
     } else if (isCorrectAnswer.equalsIgnoreCase("N")) {

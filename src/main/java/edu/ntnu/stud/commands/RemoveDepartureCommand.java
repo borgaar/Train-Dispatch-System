@@ -4,7 +4,6 @@ import static edu.ntnu.stud.utils.Constants.REGEX_TRAINID_FORMAT;
 
 import edu.ntnu.stud.exceptions.NoDepartureFoundException;
 import edu.ntnu.stud.models.DepartureTable;
-import edu.ntnu.stud.utils.DepartureTableHandler;
 import edu.ntnu.stud.utils.Halt;
 import edu.ntnu.stud.utils.Search;
 
@@ -40,7 +39,7 @@ public class RemoveDepartureCommand extends Command {
 
     int removeIndex = Search.getIndexOfTrainId(table, trainId);
 
-    DepartureTableHandler.removeDeparture(table, removeIndex);
+    table.removeDeparture(removeIndex);
     Halt.pressEnterToContinue("Departure with the train ID " + trainId + " has been removed.");
   }
 }
