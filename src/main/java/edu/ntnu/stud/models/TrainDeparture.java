@@ -13,7 +13,7 @@ public class TrainDeparture {
   private final Integer trainId;
   private final String destination;
   private LocalTime delay;
-  private OptionalInt track;
+  private int track;
 
   /**
    * Constructor for the TrainDeparture record.
@@ -32,7 +32,7 @@ public class TrainDeparture {
       Integer trainId,
       String destination,
       LocalTime delay,
-      OptionalInt track) {
+      int track) {
     this.time = time;
     this.line = line;
     this.trainId = trainId;
@@ -45,7 +45,7 @@ public class TrainDeparture {
     return time;
   }
 
-  public OptionalInt getTrack() {
+  public int getTrack() {
     return track;
   }
 
@@ -73,7 +73,7 @@ public class TrainDeparture {
     this.delay = delay;
   }
 
-  public void setTrack(OptionalInt track) {
+  public void setTrack(int track) {
     this.track = track;
   }
 }

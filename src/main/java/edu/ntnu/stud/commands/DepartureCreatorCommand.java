@@ -70,7 +70,7 @@ public class DepartureCreatorCommand extends Command {
         REGEX_DESTINATION_FORMAT,
         false);
 
-    OptionalInt track = getTrack();
+    int track = getTrack();
 
     TrainDeparture departure = new TrainDeparture(time, line, trainId, destination, delay, track);
 
@@ -131,7 +131,7 @@ public class DepartureCreatorCommand extends Command {
     }
   }
 
-  private OptionalInt getTrack() {
+  private int getTrack() {
     String trackString = inputHandler.getInput(
         "Enter the track of the departure, or leave blank if unknown",
         "[1-5]",
@@ -139,9 +139,9 @@ public class DepartureCreatorCommand extends Command {
         true);
 
     if (trackString.isEmpty()) {
-      return OptionalInt.empty();
+      return -1;
     } else {
-      return OptionalInt.of(Integer.parseInt(trackString));
+      return Integer.parseInt(trackString);
     }
   }
 

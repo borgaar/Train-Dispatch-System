@@ -74,9 +74,9 @@ public class Renderer {
           false,
           false));
       System.out.print(formatToTableEntry(
-          departure.getTrack().isPresent()
-              ? Integer.toString(departure.getTrack().getAsInt())
-              : " ",
+          departure.getTrack() == -1
+              ? " "
+              : Integer.toString(departure.getTrack()),
           5,
           true,
           false));
@@ -186,9 +186,9 @@ public class Renderer {
         false,
         true));
     System.out.print(formatToTableEntry(
-        trainDeparture.getTrack().isPresent()
-            ? Integer.toString(trainDeparture.getTrack().getAsInt())
-            : " ",
+        trainDeparture.getTrack() != -1
+            ? " "
+            : Integer.toString(trainDeparture.getTrack()),
         18,
         true,
         true));
