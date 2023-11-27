@@ -10,10 +10,6 @@ import java.util.Scanner;
 public class InputHandler {
   private final Scanner sc;
 
-  public InputHandler(Scanner sc) {
-    this.sc = sc;
-  }
-
   public InputHandler() {
     sc = new Scanner(System.in);
   }
