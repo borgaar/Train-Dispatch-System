@@ -2,7 +2,6 @@ package edu.ntnu.stud.commands;
 
 import static edu.ntnu.stud.utils.Constants.REGEX_ANYTHING;
 
-import edu.ntnu.stud.input.InputHandler;
 import edu.ntnu.stud.models.DepartureTable;
 import edu.ntnu.stud.models.TrainDeparture;
 import edu.ntnu.stud.utils.Halt;

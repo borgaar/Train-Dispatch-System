@@ -4,11 +4,9 @@ import static edu.ntnu.stud.utils.Constants.REGEX_TRACK_FORMAT;
 import static edu.ntnu.stud.utils.Constants.REGEX_TRAINID_FORMAT;
 
 import edu.ntnu.stud.exceptions.NoDepartureFoundException;
-import edu.ntnu.stud.input.InputHandler;
 import edu.ntnu.stud.models.DepartureTable;
 import edu.ntnu.stud.utils.Halt;
 import edu.ntnu.stud.utils.Search;
-import java.util.OptionalInt;
 
 /**
  * Class for setting/changing the track of a departure.
