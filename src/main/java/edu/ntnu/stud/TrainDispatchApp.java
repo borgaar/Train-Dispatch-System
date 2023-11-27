@@ -16,7 +16,6 @@ import edu.ntnu.stud.utils.DepartureTableHandler;
 import edu.ntnu.stud.utils.Halt;
 import edu.ntnu.stud.utils.Renderer;
 import java.time.LocalTime;
-import java.util.OptionalInt;
 
 
 /**
