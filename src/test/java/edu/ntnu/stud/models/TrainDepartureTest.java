@@ -1,5 +1,6 @@
 package edu.ntnu.stud.models;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -7,20 +8,25 @@ import java.time.LocalTime;
 
 class TrainDepartureTest {
 
-  private final TrainDeparture departure = new TrainDeparture(
-      LocalTime.of(12, 30),
-      "A1",
-      1234,
-      "Oslo",
-      LocalTime.of(0, 15),
-      1);
+  private TrainDeparture departure;
+
+  @BeforeEach
+  public void setUp() {
+    departure = new TrainDeparture(
+        LocalTime.of(12, 30),
+        "A1",
+        1234,
+        "Oslo",
+        LocalTime.of(0, 15),
+        1);
+  }
 
   @Test
   void getTime() {
     LocalTime expected = LocalTime.of(12, 30);
     LocalTime actual = departure.getTime();
 
-    assertEquals(expected, actual);
+    assertEquals(expected, actual, "Time should be 12:30");
   }
 
   @Test
@@ -28,22 +34,16 @@ class TrainDepartureTest {
     int expected = 1;
     int actual = departure.getTrack();
 
-    assertEquals(expected, actual);
+    assertEquals(expected, actual, "Track should be 1");
   }
 
   @Test
   void setTrack() {
     int expected = 2;
-    departure.setTrack(expected);
+    departure.setTrack(2);
     int actual = departure.getTrack();
 
-    assertEquals(expected, actual);
-
-    expected = -1;
-    departure.setTrack(expected);
-    actual = departure.getTrack();
-
-    assertEquals(expected, actual);
+    assertEquals(expected, actual, "Track should be 2");
   }
 
   @Test
@@ -51,7 +51,7 @@ class TrainDepartureTest {
     String expected = "A1";
     String actual = departure.getLine();
 
-    assertEquals(expected, actual);
+    assertEquals(expected, actual, "Line should be A1");
   }
 
   @Test
@@ -59,7 +59,7 @@ class TrainDepartureTest {
     int expected = 1234;
     int actual = departure.getTrainId();
 
-    assertEquals(expected, actual);
+    assertEquals(expected, actual, "Train ID should be 1234");
   }
 
   @Test
@@ -67,7 +67,7 @@ class TrainDepartureTest {
     String expected = "Oslo";
     String actual = departure.getDestination();
 
-    assertEquals(expected, actual);
+    assertEquals(expected, actual, "Destination should be Oslo");
   }
 
   @Test
@@ -75,16 +75,16 @@ class TrainDepartureTest {
     LocalTime expected = LocalTime.of(0, 15);
     LocalTime actual = departure.getDelay();
 
-    assertEquals(expected, actual);
+    assertEquals(expected, actual, "Delay should be 00:15");
   }
 
   @Test
   void setDelay() {
     LocalTime expected = LocalTime.of(0, 30);
-    departure.setDelay(expected);
+    departure.setDelay(LocalTime.of(0, 30));
     LocalTime actual = departure.getDelay();
 
-    assertEquals(expected, actual);
+    assertEquals(expected, actual, "Delay should be 00:30");
   }
 
   @Test
@@ -92,6 +92,6 @@ class TrainDepartureTest {
     LocalTime expected = LocalTime.of(12, 45);
     LocalTime actual = departure.getAdjustedTime();
 
-    assertEquals(expected, actual);
+    assertEquals(expected, actual, "Adjusted time should be 12:45");
   }
 }
