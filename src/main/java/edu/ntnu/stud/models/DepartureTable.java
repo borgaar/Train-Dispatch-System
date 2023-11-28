@@ -42,7 +42,8 @@ public class DepartureTable {
   }
 
   private void sortDepartureTable() {
-    departureList.sort(Comparator.comparing(TrainDeparture::getAdjustedTime));
+    departureList.sort(Comparator.comparing(TrainDeparture::getAdjustedTime)
+        .thenComparing(TrainDeparture::getDestination));
   }
 
   public void addDeparture(TrainDeparture departure) {
