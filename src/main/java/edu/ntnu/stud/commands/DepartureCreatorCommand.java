@@ -35,11 +35,14 @@ public class DepartureCreatorCommand extends Command {
 
   @Override
   public void run(DepartureTable table) throws InvalidDepartureException {
+    // Get delay for the new departure from the user
     String delayString = inputHandler.getInput(
         "Enter the delay of the departure",
         "[HH:MM]",
         REGEX_24HR_FORMAT,
         false);
+
+    // Get the new departure time from the user
     String timeString = inputHandler.getInput(
         "Enter the time of the departure",
         "[HH:MM]",
@@ -49,34 +52,43 @@ public class DepartureCreatorCommand extends Command {
     LocalTime delay = LocalTime.parse(delayString);
     LocalTime time = LocalTime.parse(timeString);
 
+    // Check if the time is valid (not past midnight or before current time)
     isTimeValid(table, delay, time);
 
+    // Get the line for the new departure from the user
     String line = inputHandler.getInput(
         "Enter the line of the departure",
         "[A-D][1-9]",
         REGEX_LINE_FORMAT,
         false);
 
+    // Get the train ID for the new departure from the user
     int trainId = getTrainId(table, inputHandler);
 
+    // Get the destination of the new departure from the user
     String destination = inputHandler.getInput(
         "Enter the destination of the departure",
         "[a-Z]",
         REGEX_DESTINATION_FORMAT,
         false);
 
+    // Get the track for the new departure from the user
     int track = getTrack(inputHandler);
 
+    // Create the new departure
     TrainDeparture departure = new TrainDeparture(time, line, trainId, destination, delay, track);
 
+    // Present the new departure to the user and ask if it is correct
     verifyDetails(table, inputHandler, departure);
   }
 
+  // Method for checking whether the time set is valid
   private void isTimeValid(
       DepartureTable table,
       LocalTime delay,
       LocalTime time) throws InvalidDepartureException {
 
+    // Throw an exception if the time is past midnight or before current time
     if (time.isAfter(time.plusHours(delay.getHour()).plusMinutes(delay.getMinute()))) {
       throw new InvalidDepartureException("The scheduled departure time ("
           + time + ") plus the delay ("
@@ -91,6 +103,7 @@ public class DepartureCreatorCommand extends Command {
     }
   }
 
+  // Method for auto-generating a train ID
   private int autogenerateTrainId(DepartureTable table) {
     int trainId;
 
@@ -103,11 +116,13 @@ public class DepartureCreatorCommand extends Command {
     return trainId;
   }
 
+  // Method for checking whether a given train ID is unique
   private boolean isIdUnique(DepartureTable table, int trainId) {
     return table.getDepartureList().stream()
         .filter(departure -> departure.getTrainId() == trainId).findAny().isEmpty();
   }
 
+  // Method for getting a train ID from the user
   private int getTrainId(DepartureTable table,
                          InputHandler inputHandler) throws InvalidDepartureException {
     String trainIdString = inputHandler.getInput(
@@ -123,10 +138,11 @@ public class DepartureCreatorCommand extends Command {
       return Integer.parseInt(trainIdString);
 
     } else {
-      throw new InvalidDepartureException("Train ID " + trainIdString + " is already in use.");
+      throw new InvalidDepartureException("Train ID '" + trainIdString + "' is already in use.");
     }
   }
 
+  // Method for getting a track from the user
   private int getTrack(InputHandler inputHandler) {
     String trackString = inputHandler.getInput(
         "Enter the track of the departure, or leave blank if unknown",
@@ -134,6 +150,7 @@ public class DepartureCreatorCommand extends Command {
         REGEX_TRACK_FORMAT,
         true);
 
+    // Return -1 if the track is unknown (blank response)
     if (trackString.isEmpty()) {
       return -1;
     } else {
@@ -144,6 +161,7 @@ public class DepartureCreatorCommand extends Command {
   private void verifyDetails(DepartureTable table,
                              InputHandler inputHandler, TrainDeparture departure) {
     Renderer.renderDetails(departure);
+
     String isCorrectAnswer = inputHandler.getInput(
         "Is this correct?",
         "[Y/n]",
