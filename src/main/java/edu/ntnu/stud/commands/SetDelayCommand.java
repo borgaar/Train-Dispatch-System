@@ -51,15 +51,9 @@ public class SetDelayCommand extends Command {
       delay = LocalTime.parse(delayString);
     }
 
-    LocalTime newAdjustedTime = table.getDepartureAt(index).getTime()
-        .plusHours(delay.getHour())
-        .plusMinutes(delay.getMinute());
+    inputHandler.isTimeValid(table, delay, table.getDepartureAt(index).getTime());
 
-    if (newAdjustedTime.isBefore(table.getCurrentTime())) {
-      throw new InvalidDelayException("The new adjusted departure time ("
-          + newAdjustedTime + ") is before the current time (" + table.getCurrentTime() + ")");
-    }
-
+    // If the delay is set to none, print a message saying so, otherwise print the new delay
     if (delayString.isEmpty()) {
       Halt.pressEnterToContinue("The delay for departure " + trainId + " has been set to none.");
     } else {

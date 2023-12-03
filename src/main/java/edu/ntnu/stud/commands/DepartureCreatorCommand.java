@@ -53,7 +53,7 @@ public class DepartureCreatorCommand extends Command {
     LocalTime time = LocalTime.parse(timeString);
 
     // Check if the time is valid (not past midnight or before current time)
-    isTimeValid(table, delay, time);
+    inputHandler.isTimeValid(table, delay, time);
 
     // Get the line for the new departure from the user
     String line = inputHandler.getInput(
@@ -80,27 +80,6 @@ public class DepartureCreatorCommand extends Command {
 
     // Present the new departure to the user and ask if it is correct
     verifyDetails(table, inputHandler, departure);
-  }
-
-  // Method for checking whether the time set is valid
-  private void isTimeValid(
-      DepartureTable table,
-      LocalTime delay,
-      LocalTime time) throws InvalidDepartureException {
-
-    // Throw an exception if the time is past midnight or before current time
-    if (time.isAfter(time.plusHours(delay.getHour()).plusMinutes(delay.getMinute()))) {
-      throw new InvalidDepartureException("The scheduled departure time ("
-          + time + ") plus the delay ("
-          + delay + ") is past midnight.");
-
-    } else if (time.plusHours(delay.getHour()).plusMinutes(delay.getMinute())
-        .isBefore(table.getCurrentTime())) {
-      throw new InvalidDepartureException("The scheduled departure time ("
-          + time + ") plus the delay ("
-          + delay + ") is before the current time ("
-          + table.getCurrentTime() + ").");
-    }
   }
 
   // Method for auto-generating a train ID
