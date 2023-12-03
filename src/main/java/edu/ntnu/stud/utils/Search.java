@@ -31,6 +31,7 @@ public class Search {
     return index.getAsInt();
   }
 
+
   /**
    * Method for getting the index of a departure by train ID.
    *

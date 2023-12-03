@@ -43,6 +43,7 @@ public class Renderer {
                 """);
   }
 
+
   /**
    * Method for rendering the departure table.
    *
@@ -113,6 +114,7 @@ public class Renderer {
       System.out.println("┠╌╌╌╌╌╌╌╂╌╌╌╌╌╌╂╌╌╌╌╌╌╌╌╌╌╂╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╂╌╌╌╌╌╌╌╂╌╌╌╌╌╌╌┨");
     }
   }
+
 
   /**
    * Method for rendering the details of a train departure.
@@ -211,8 +213,9 @@ public class Renderer {
    * @param targetLength The length to format the entry to
    * @param leftAlign    Whether to left align the entry or not
    */
+
   private static String formatToLength(String entry, int targetLength, boolean leftAlign) {
-    // If the entry is longer than the target length, shorten it and add ".."
+    // If the entry is longer than the target length, shorten it and add '..'
     if (entry.length() > targetLength) {
       return entry.substring(0, targetLength - 2) + "..";
 
@@ -226,6 +229,7 @@ public class Renderer {
       return " ".repeat(totalPadding / 2) + entry + " ".repeat(totalPadding / 2);
     }
   }
+
 
   /**
    * Method for formatting a string to a given length and adding a border around it.

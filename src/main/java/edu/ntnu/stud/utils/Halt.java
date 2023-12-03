@@ -15,6 +15,7 @@ public class Halt {
     sc.nextLine();
   }
 
+
   public static void pressEnterToContinue(String message) {
     System.out.print("\n" + message + " ");
     pressEnterToContinue();

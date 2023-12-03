@@ -33,6 +33,7 @@ public class DepartureCreatorCommand extends Command {
     this.random = random;
   }
 
+
   @Override
   public void run(DepartureTable table) throws InvalidDepartureException {
     // Get delay for the new departure from the user
@@ -82,6 +83,7 @@ public class DepartureCreatorCommand extends Command {
     verifyDetails(table, inputHandler, departure);
   }
 
+
   // Method for auto-generating a train ID
   private int autogenerateTrainId(DepartureTable table) {
     int trainId;
@@ -95,11 +97,13 @@ public class DepartureCreatorCommand extends Command {
     return trainId;
   }
 
+
   // Method for checking whether a given train ID is unique
   private boolean isIdUnique(DepartureTable table, int trainId) {
     return table.getDepartureList().stream()
         .filter(departure -> departure.getTrainId() == trainId).findAny().isEmpty();
   }
+
 
   // Method for getting a train ID from the user
   private int getTrainId(DepartureTable table,
@@ -121,6 +125,7 @@ public class DepartureCreatorCommand extends Command {
     }
   }
 
+
   // Method for getting a track from the user
   private int getTrack(InputHandler inputHandler) {
     String trackString = inputHandler.getInput(
@@ -136,6 +141,7 @@ public class DepartureCreatorCommand extends Command {
       return Integer.parseInt(trackString);
     }
   }
+
 
   // Method for verifying the details of the new departure
   private void verifyDetails(DepartureTable table,

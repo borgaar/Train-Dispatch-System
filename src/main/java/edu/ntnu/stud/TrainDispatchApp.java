@@ -39,6 +39,7 @@ public class TrainDispatchApp {
     start();
   }
 
+
   private static void init() {
     System.out.println("Initializing...");
 
@@ -85,6 +86,7 @@ public class TrainDispatchApp {
       table.addDeparture(departure);
     }
   }
+
 
   private static void start() {
     System.out.println("Starting...");

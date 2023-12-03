@@ -32,6 +32,7 @@ public class DepartureTable {
     currentTime = time;
   }
 
+
   // Updates the departure table by removing departed trains and sorting the table
   public void updateDepartureTable() {
     removeDepartedTrains();
@@ -43,15 +44,18 @@ public class DepartureTable {
     departureList.removeIf(departure -> departure.getAdjustedTime().isBefore(currentTime));
   }
 
+
   // Sorts the departure table by adjusted time then destination if the adjusted times are equal
   private void sortDepartureTable() {
     departureList.sort(Comparator.comparing(TrainDeparture::getAdjustedTime)
         .thenComparing(TrainDeparture::getDestination));
   }
 
+
   public void addDeparture(TrainDeparture departure) {
     departureList.add(departure);
   }
+
 
   public void removeDeparture(int index) {
     departureList.remove(index);

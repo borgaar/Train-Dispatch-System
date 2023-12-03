@@ -52,6 +52,7 @@ public class InputHandler {
     return input;
   }
 
+
   /**
    * Method for checking if the time is valid.
    *
