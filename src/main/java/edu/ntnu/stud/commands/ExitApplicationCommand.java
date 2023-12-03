@@ -14,6 +14,9 @@ public class ExitApplicationCommand extends Command {
     super("Exit the application");
   }
 
+  /**
+   * Exits the application.
+   */
   @Override
   public void run(DepartureTable table) {
     System.out.println("Exiting application...");

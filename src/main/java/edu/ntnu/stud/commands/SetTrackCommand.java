@@ -18,6 +18,11 @@ public class SetTrackCommand extends Command {
   }
 
 
+  /**
+   * Sets the track of a departure.
+   *
+   * @param table the departure table.
+   */
   @Override
   public void run(DepartureTable table) throws NoDepartureFoundException {
     String trainIdString = inputHandler.getInput(
@@ -27,14 +32,17 @@ public class SetTrackCommand extends Command {
         REGEX_TRAINID_FORMAT,
         true);
 
+    // If the input is empty, abort
     if (trainIdString.isEmpty()) {
       Halt.pressEnterToContinue("Input was empty. Aborting.");
       return;
     }
 
+    // Get the index of the departure to change the delay of
     int trainId = Integer.parseInt(trainIdString);
     int index = Search.getIndexOfTrainId(table, trainId);
 
+    // Get the new delay from the user
     String trackString = inputHandler.getInput(
         "Enter the new track for the departure "
             + "(blank for no track). "
@@ -45,15 +53,19 @@ public class SetTrackCommand extends Command {
         REGEX_TRACK_FORMAT,
         true);
 
+    // If the input is empty, set the delay to none
     int track;
     if (trackString.isEmpty()) {
       track = -1;
       Halt.pressEnterToContinue("The track has been removed from the departure.");
+
+      // If the input is not empty, parse the input and print the new delay
     } else {
       track = Integer.parseInt(trackString);
       Halt.pressEnterToContinue("The track has been changed to " + track);
     }
 
+    // Set the delay of the departure
     table.getDepartureAt(index).setTrack(track);
   }
 }

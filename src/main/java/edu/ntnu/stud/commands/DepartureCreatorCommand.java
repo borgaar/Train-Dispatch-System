@@ -137,20 +137,24 @@ public class DepartureCreatorCommand extends Command {
     }
   }
 
+  // Method for verifying the details of the new departure
   private void verifyDetails(DepartureTable table,
                              InputHandler inputHandler, TrainDeparture departure) {
-    Renderer.renderDetails(departure);
+    Renderer.renderDetails(departure); // Render the details of the new departure
 
+    // Prompt the user to verify the details of the new departure
     String isCorrectAnswer = inputHandler.getInput(
         "Is this correct?",
         "[Y/n]",
         REGEX_YN_FORMAT,
         true);
 
+    // Add the new departure to the departure table if the user confirms
     if (isCorrectAnswer.isEmpty() || isCorrectAnswer.equalsIgnoreCase("Y")) {
       table.addDeparture(departure);
       Halt.pressEnterToContinue("The departure has been added.");
 
+      // Abort if the user does not confirm
     } else if (isCorrectAnswer.equalsIgnoreCase("N")) {
       Halt.pressEnterToContinue("The departure will not be added. Aborting.");
     }

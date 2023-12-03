@@ -33,6 +33,7 @@ public class InputHandler {
 
     String input;
 
+    // Loop until the input is valid
     boolean inputIsInvalid;
     do {
       inputIsInvalid = false;
@@ -47,6 +48,7 @@ public class InputHandler {
       }
     } while (inputIsInvalid);
 
+    // Return the input
     return input;
   }
 

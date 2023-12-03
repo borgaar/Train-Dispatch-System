@@ -42,6 +42,7 @@ public class TrainDispatchApp {
   private static void init() {
     System.out.println("Initializing...");
 
+    // Creates a new departure table and input handler
     table = new DepartureTable(LocalTime.of(12, 10));
     inputHandler = new InputHandler();
 
@@ -79,6 +80,7 @@ public class TrainDispatchApp {
             LocalTime.of(10, 6), "B2", 1528, "Kragerø", LocalTime.of(0, 0), -1)
     };
 
+    // Adds the pre-generated train departures to the departure table
     for (TrainDeparture departure : testData) {
       table.addDeparture(departure);
     }
@@ -92,10 +94,13 @@ public class TrainDispatchApp {
     //noinspection InfiniteLoopStatement
     while (true) {
 
+      // Update the departure table
       table.updateDepartureTable();
 
+      // Render the departure table
       Renderer.renderMenu(commands);
 
+      // Get the user's choice
       String regexAndPrompt = "[1-" + (commands.length) + "]";
       choice = Integer.parseInt(inputHandler.getInput(
           "Enter an option",
@@ -103,8 +108,11 @@ public class TrainDispatchApp {
           regexAndPrompt,
           false));
 
+      // Run the command
       try {
         commands[choice - 1].run(table);
+
+        // Catch any exceptions thrown by the command and print the error message
       } catch (Exception e) {
         Halt.pressEnterToContinue("An error occurred: " + e.getMessage());
       }

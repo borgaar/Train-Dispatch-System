@@ -21,15 +21,16 @@ public class RemoveDepartureCommand extends Command {
    *
    * @param table the departure table.
    */
-
   @Override
   public void run(DepartureTable table) throws NoDepartureFoundException {
+    // Get the train ID of the departure to remove from the table
     String trainIdString = inputHandler.getInput(
         "Enter the train ID for the departure you want to remove, or leave blank to abort",
         "[1000-9999]",
         REGEX_TRAINID_FORMAT,
         true);
 
+    // If the input is empty, abort
     if (trainIdString.isEmpty()) {
       System.out.println("\nInput was empty. Aborting.");
       return;
@@ -39,6 +40,7 @@ public class RemoveDepartureCommand extends Command {
 
     int removeIndex = Search.getIndexOfTrainId(table, trainId);
 
+    // Remove the departure from the table.
     table.removeDeparture(removeIndex);
     Halt.pressEnterToContinue("Departure with the train ID " + trainId + " has been removed.");
   }

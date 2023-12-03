@@ -14,6 +14,7 @@ public class Renderer {
    * Renders the main menu options.
    */
   public static void renderMenu(Command[] commands) {
+    // Print top headers
     System.out.print("""
                 
         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -23,6 +24,7 @@ public class Renderer {
         ┠╌╌╌╌╌╂╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┨
         """);
 
+    // Print menu options
     for (int i = 0; i < commands.length; i++) {
       printAsTableEntry(
           Integer.toString(i + 1),
@@ -35,6 +37,7 @@ public class Renderer {
           true);
     }
 
+    // Print bottom border
     System.out.println("""
         ┗━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
                 """);
@@ -49,6 +52,7 @@ public class Renderer {
 
     printHeaders(table);
 
+    // Print the departures
     table.getDepartureList().forEach(departure -> {
       printAsTableEntry(departure.getAdjustedTime().toString(),
           5,
@@ -116,6 +120,7 @@ public class Renderer {
    * @param trainDeparture The train departure to be rendered.
    */
   public static void renderDetails(TrainDeparture trainDeparture) {
+    // Print top header
     System.out.print("""
                 
         ┏━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┓
@@ -123,6 +128,7 @@ public class Renderer {
         ┠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╂╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┨
         """);
 
+    // Print details
     printAsTableEntry(
         "Time w/ delay",
         13,
@@ -193,16 +199,28 @@ public class Renderer {
         true,
         true);
 
+    // Print bottom border
     System.out.println("┗━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┛");
   }
 
+  /**
+   * Method for formatting a string to a given length,
+   * and whether to center the string between whitespaces.
+   *
+   * @param entry        The entry to format
+   * @param targetLength The length to format the entry to
+   * @param leftAlign    Whether to left align the entry or not
+   */
   private static String formatToLength(String entry, int targetLength, boolean leftAlign) {
+    // If the entry is longer than the target length, shorten it and add ".."
     if (entry.length() > targetLength) {
       return entry.substring(0, targetLength - 2) + "..";
 
+      // If the entry is shorter than the target length and leftAlign, add whitespaces at the end
     } else if (leftAlign) {
       return entry + " ".repeat(targetLength - entry.length());
 
+      // If the entry is shorter than the target length and not leftAlign, add whitespaces around it
     } else {
       int totalPadding = targetLength - entry.length();
       return " ".repeat(totalPadding / 2) + entry + " ".repeat(totalPadding / 2);
@@ -222,10 +240,16 @@ public class Renderer {
                                         boolean lastColumn,
                                         boolean leftAlign) {
 
+    // Make the entry the correct length
     String formattedEntry = formatToLength(entry, targetLength, leftAlign);
+
+    // Add one whitespace at the end if the entry is shorter than the target length
     formattedEntry = formattedEntry.length() < targetLength ? formattedEntry + " " : formattedEntry;
+
+    // Add a border at the end if the entry is in the last column
     formattedEntry = lastColumn ? formattedEntry + " ┃\n" : formattedEntry + " ";
 
+    // Print the entry
     System.out.print("┃ " + formattedEntry);
   }
 }

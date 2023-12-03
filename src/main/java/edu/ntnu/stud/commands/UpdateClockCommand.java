@@ -21,14 +21,17 @@ public class UpdateClockCommand extends Command {
    */
   @Override
   public void run(DepartureTable table) throws InvalidTimeException {
+    // Get the new time from the user
     String input = inputHandler.getInput("Enter new time, or leave blank to abort",
         "HH:MM",
         REGEX_24HR_FORMAT,
         true);
 
+    // If the input is empty, abort
     if (input.isEmpty()) {
       Halt.pressEnterToContinue("\nThe time has not been changed.");
 
+      // If the input is not empty, parse it and check if it is valid
     } else {
       LocalTime newTime = LocalTime.parse(input);
 

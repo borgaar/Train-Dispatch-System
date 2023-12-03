@@ -19,8 +19,14 @@ public class SetDelayCommand extends Command {
     super("Set a new delay for a departure");
   }
 
+  /**
+   * Sets the delay of a departure.
+   *
+   * @param table the departure table.
+   */
   @Override
   public void run(DepartureTable table) throws InvalidDelayException, NoDepartureFoundException {
+    // Get the train ID of the departure to change the delay of
     String trainIdString = inputHandler.getInput(
         "Enter the train ID for the departure you want to change the delay of, "
             + "or leave blank to abort",
@@ -28,14 +34,17 @@ public class SetDelayCommand extends Command {
         REGEX_TRAINID_FORMAT,
         true);
 
+    // If the input is empty, abort
     if (trainIdString.isEmpty()) {
       Halt.pressEnterToContinue("Input was empty. Aborting.");
       return;
     }
 
+    // Get the index of the departure to change the delay of
     int trainId = Integer.parseInt(trainIdString);
     int index = Search.getIndexOfTrainId(table, trainId);
 
+    // Get the new delay from the user
     String delayString = inputHandler.getInput(
         "Enter the new delay for the departure "
             + "(blank for no delay). Current delay is "
@@ -44,9 +53,12 @@ public class SetDelayCommand extends Command {
         REGEX_24HR_FORMAT,
         true);
 
+    // If the input is empty, set the delay to none
     LocalTime delay;
     if (delayString.isEmpty()) {
       delay = LocalTime.of(0, 0);
+
+      // If the input is not empty, parse the input
     } else {
       delay = LocalTime.parse(delayString);
     }
@@ -60,6 +72,7 @@ public class SetDelayCommand extends Command {
       Halt.pressEnterToContinue("The delay for departure " + trainId + " changed to " + delay);
     }
 
+    // Set the delay of the departure
     table.getDepartureAt(index).setDelay(delay);
   }
 }

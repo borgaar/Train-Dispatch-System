@@ -13,6 +13,9 @@ public class PrintDeparturesCommand extends Command {
     super("Print all scheduled departures");
   }
 
+  /**
+   * Prints all departures as a departure table.
+   */
   @Override
   public void run(DepartureTable table) {
     Renderer.renderDepartureTable(table);
