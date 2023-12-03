@@ -3,7 +3,7 @@ package edu.ntnu.stud.commands;
 import static edu.ntnu.stud.utils.Constants.REGEX_24HR_FORMAT;
 import static edu.ntnu.stud.utils.Constants.REGEX_TRAINID_FORMAT;
 
-import edu.ntnu.stud.exceptions.InvalidDelayException;
+import edu.ntnu.stud.exceptions.InvalidDepartureException;
 import edu.ntnu.stud.exceptions.NoDepartureFoundException;
 import edu.ntnu.stud.models.DepartureTable;
 import edu.ntnu.stud.utils.Halt;
