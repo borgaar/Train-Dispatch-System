@@ -2,6 +2,9 @@ package edu.ntnu.stud.input;
 
 import static edu.ntnu.stud.utils.Constants.INVALID_INPUT_MESSAGE;
 
+import edu.ntnu.stud.exceptions.InvalidDepartureException;
+import edu.ntnu.stud.models.DepartureTable;
+import java.time.LocalTime;
 import java.util.Scanner;
 
 /**
