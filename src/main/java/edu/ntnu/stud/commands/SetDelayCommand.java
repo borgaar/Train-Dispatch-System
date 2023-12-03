@@ -25,7 +25,8 @@ public class SetDelayCommand extends Command {
    * @param table the departure table.
    */
   @Override
-  public void run(DepartureTable table) throws InvalidDelayException, NoDepartureFoundException {
+  public void run(DepartureTable table)
+      throws InvalidDepartureException, NoDepartureFoundException {
     // Get the train ID of the departure to change the delay of
     String trainIdString = inputHandler.getInput(
         "Enter the train ID for the departure you want to change the delay of, "
