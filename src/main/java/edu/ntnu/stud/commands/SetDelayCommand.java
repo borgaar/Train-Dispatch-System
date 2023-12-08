@@ -64,7 +64,7 @@ public class SetDelayCommand extends Command {
       delay = LocalTime.parse(delayString);
     }
 
-    inputHandler.isTimeValid(table, delay, table.getDepartureAt(index).getTime());
+    inputHandler.isAdjustedTimeValid(table, delay, table.getDepartureAt(index).getScheduledTime());
 
     // If the delay is set to none, print a message saying so, otherwise print the new delay
     if (delayString.isEmpty()) {

@@ -56,29 +56,31 @@ public class InputHandler {
   /**
    * Method for checking if the time is valid.
    *
-   * @param table the departure table.
-   * @param delay the delay of the departure.
-   * @param time  the time of the departure.
+   * @param table         the departure table.
+   * @param delay         the delay of the departure.
+   * @param scheduledTime the scheduled (planned) time of the departure.
    * @throws InvalidDepartureException if the time is past midnight or before current time.
    */
-  public void isTimeValid(
+  public void isAdjustedTimeValid(
       DepartureTable table,
       LocalTime delay,
-      LocalTime time) throws InvalidDepartureException {
+      LocalTime scheduledTime) throws InvalidDepartureException {
 
-    LocalTime newAdjustedTime = time.plusHours(delay.getHour()).plusMinutes(delay.getMinute());
+    LocalTime newAdjustedTime = scheduledTime
+        .plusHours(delay.getHour())
+        .plusMinutes(delay.getMinute());
 
     // Throw an exception if the scheduled time is past midnight or before current time
-    if (time.isAfter(newAdjustedTime)) {
+    if (scheduledTime.isAfter(newAdjustedTime)) {
       throw new InvalidDepartureException("The scheduled departure time ("
-          + time + ") plus the delay ("
+          + scheduledTime + ") plus the delay ("
           + delay + "), results in the adjusted departure time of "
           + newAdjustedTime + " the next day, which is past midnight.");
 
       // Throw an exception if the time is before current time
     } else if (newAdjustedTime.isBefore(table.getCurrentTime())) {
       throw new InvalidDepartureException("The scheduled departure time ("
-          + time + ") plus the delay ("
+          + scheduledTime + ") plus the delay ("
           + delay + "), results in the adjusted departure time of "
           + newAdjustedTime + " which is before the current time ("
           + table.getCurrentTime() + ").");

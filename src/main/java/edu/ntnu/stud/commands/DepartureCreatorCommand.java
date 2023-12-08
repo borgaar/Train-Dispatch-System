@@ -45,16 +45,16 @@ public class DepartureCreatorCommand extends Command {
 
     // Get the new departure time from the user
     String timeString = inputHandler.getInput(
-        "Enter the time of the departure",
+        "Enter the scheduled time of the departure",
         "[HH:MM]",
         REGEX_24HR_FORMAT,
         false);
 
     LocalTime delay = LocalTime.parse(delayString);
-    LocalTime time = LocalTime.parse(timeString);
+    LocalTime scheduledTime = LocalTime.parse(timeString);
 
-    // Check if the time is valid (not past midnight or before current time)
-    inputHandler.isTimeValid(table, delay, time);
+    // Check if the adjusted time will be valid (not past midnight or before current time)
+    inputHandler.isAdjustedTimeValid(table, delay, scheduledTime);
 
     // Get the line for the new departure from the user
     String line = inputHandler.getInput(
@@ -77,7 +77,13 @@ public class DepartureCreatorCommand extends Command {
     int track = getTrack(inputHandler);
 
     // Create the new departure
-    TrainDeparture departure = new TrainDeparture(time, line, trainId, destination, delay, track);
+    TrainDeparture departure = new TrainDeparture(
+        scheduledTime,
+        line,
+        trainId,
+        destination,
+        delay,
+        track);
 
     // Present the new departure to the user and ask if it is correct
     verifyDetails(table, inputHandler, departure);

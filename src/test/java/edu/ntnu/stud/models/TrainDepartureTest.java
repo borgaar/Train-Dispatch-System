@@ -22,11 +22,11 @@ class TrainDepartureTest {
   }
 
   @Test
-  void getTime() {
+  void getScheduledTime() {
     LocalTime expected = LocalTime.of(12, 30);
-    LocalTime actual = departure.getTime();
+    LocalTime actual = departure.getScheduledTime();
 
-    assertEquals(expected, actual, "Time should be 12:30");
+    assertEquals(expected, actual, "Scheduled time should be 12:30");
   }
 
   @Test

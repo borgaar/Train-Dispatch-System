@@ -6,7 +6,7 @@ import java.time.LocalTime;
  * TrainDeparture class for the program.
  */
 public class TrainDeparture {
-  private final LocalTime time;
+  private final LocalTime scheduledTime;
   private final String line;
   private final Integer trainId;
   private final String destination;
@@ -16,22 +16,22 @@ public class TrainDeparture {
   /**
    * Constructor for the TrainDeparture record.
    *
-   * @param time        the time of departure.
-   * @param line        the line of the train.
-   * @param trainId     the train identification.
-   * @param destination the destination of the train.
-   * @param delay       the delay of the train.
-   * @param track       the track of the train.
+   * @param scheduledTime the scheduled time of departure.
+   * @param line          the line of the train.
+   * @param trainId       the train identification.
+   * @param destination   the destination of the train.
+   * @param delay         the delay of the train.
+   * @param track         the track of the train.
    */
   // Constructor
   public TrainDeparture(
-      LocalTime time,
+      LocalTime scheduledTime,
       String line,
       Integer trainId,
       String destination,
       LocalTime delay,
       int track) {
-    this.time = time;
+    this.scheduledTime = scheduledTime;
     this.line = line;
     this.trainId = trainId;
     this.destination = destination;
@@ -39,8 +39,8 @@ public class TrainDeparture {
     this.track = track;
   }
 
-  public LocalTime getTime() {
-    return time;
+  public LocalTime getScheduledTime() {
+    return scheduledTime;
   }
 
   public int getTrack() {
@@ -72,6 +72,6 @@ public class TrainDeparture {
   }
 
   public LocalTime getAdjustedTime() {
-    return time.plusHours(delay.getHour()).plusMinutes(delay.getMinute());
+    return scheduledTime.plusHours(delay.getHour()).plusMinutes(delay.getMinute());
   }
 }
